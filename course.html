@@ -1,0 +1,686 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Interactive Course Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base & Theming --- */
+        :root {
+            --slate-50: #1b223c;      /* Sidebar Background */
+            --slate-300: #82b2f5ff;    /* Breadcrumb Text (Lightened for contrast) */
+            --slate-700: #4b5e79ff;    /* Sidebar Hover */
+            --slate-800: #9da2a9;      /* Darker Accent */
+            --slate-900: #111827;      /* Nav Button Background */
+
+            --gray-100: #0d1322;      /* Main Background */
+            --gray-200: #e5e7eb;      /* Borders */
+            --gray-500: #6B7280;      /* Muted Text */
+            --gray-800: #bbbec2;      /* Primary Text */
+            --gray-900: #ffffffff;    /* White Text on Dark BG */
+
+            --blue-100: #3b82f6;      /* Active Sidebar Item BG */
+            --blue-600: #2563EB;      /* Primary Button */
+            --blue-700: #1D4ED8;      /* Primary Button Hover */
+            
+            --white: #FFFFFF;
+            --black: #000000;
+            --green-500: #10b981;     /* Progress Bar Fill */
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        button, a {
+            cursor: pointer;
+            border: none;
+            background: none;
+            text-decoration: none;
+            color: inherit;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* --- Global Header --- */
+        .global-header {
+            background-color: var(--white);
+            color: var(--gray-800);
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--gray-200);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 40;
+            height: 65px;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 1.5rem;
+            
+            margin: 0 auto;
+        }
+        
+        .header-left { display: flex; align-items: center; }
+
+        .header-logo img {
+            height: 150px;
+            width: 180px;
+            padding-top: 10px; /* Prevents logo from stretching */
+        }
+
+        #open-sidebar-btn {
+            padding: 0.5rem;
+            margin-right: 0.5rem;
+            border-radius: 0.375rem;
+        }
+        #open-sidebar-btn svg {
+            width: 1.5rem; height: 1.5rem;
+            color: var(--gray-500);
+        }
+
+        #logout-btn {
+            background-color: #9d3a3a;
+            color: var(--white);
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        #logout-btn:hover {
+            background-color: #440707;
+        }
+
+
+        /* --- Main Layout --- */
+        #app {
+            display: flex;
+            padding-top: 65px; /* Offset for fixed header */
+        }
+
+        /* --- Sidebar --- */
+        #sidebar {
+            background-color: var(--slate-50);
+            color: var(--gray-900);
+            width: 320px;
+            flex-shrink: 0;
+            height: calc(100vh - 65px);
+            position: fixed;
+            top: 65px; left: 0;
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            border-right: 1px solid #374151;
+        }
+        
+        #sidebar.open {
+            transform: translateX(0);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--slate-700);
+        }
+        
+        .sidebar-header h2 {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+        
+        #course-navigation {
+            padding: 1rem;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        #course-navigation::-webkit-scrollbar { width: 8px; }
+        #course-navigation::-webkit-scrollbar-track { background: var(--slate-50); }
+        #course-navigation::-webkit-scrollbar-thumb { background: var(--slate-700); border-radius: 4px; }
+        #course-navigation::-webkit-scrollbar-thumb:hover { background: var(--slate-300); }
+
+
+        /* --- Sidebar Navigation Items --- */
+        .week-toggle {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.2s;
+            margin-bottom: 0.5rem;
+        }
+        .week-toggle:hover {
+            background-color: var(--slate-700);
+        }
+        
+        .week-toggle-content span {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .progress-bar-bg {
+            background-color: var(--slate-700);
+            border-radius: 9999px;
+            height: 6px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            background-color: var(--green-500);
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.4s ease;
+        }
+
+        .week-toggle .arrow { width: 1.25rem; height: 1.25rem; transition: transform 0.3s; }
+        .week-toggle.collapsed .arrow { transform: rotate(-90deg); }
+
+        .day-list {
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, margin-top 0.4s ease-in-out;
+        }
+        .day-list.hidden {
+            max-height: 0;
+            margin-top: 0;
+        }
+        
+        .day-link {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            transition: background-color 0.2s, color 0.2s;
+            margin-bottom: 0.25rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+        .day-link:hover {
+            background-color: var(--slate-700);
+        }
+        .day-link.active {
+            background-color: var(--blue-100);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .day-link .status-icon {
+            position: absolute;
+            left: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1rem;
+        }
+        
+        /* --- Main Content --- */
+        .main-content-area {
+            flex-grow: 1;
+            padding: 2rem;
+            transition: margin-left 0.3s ease-in-out;
+            margin-left: 0;
+        }
+
+        #content-header {
+            margin-bottom: 2rem;
+        }
+        
+        #content-breadcrumb {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        #content-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--slate-800);
+            line-height: 1.2;
+        }
+        
+        .content-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        #video-player-container {
+            background-color: var(--black);
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            margin-bottom: 1.5rem;
+        }
+        
+        #video-player {
+            width: 100%; height: 100%; border: 0;
+        }
+        
+        #nav-btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        
+        .nav-btn {
+            background-color: var(--slate-900);
+            color: var(--white);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-btn:hover {
+            background-color: var(--gray-800);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        .nav-btn:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* --- Materials Section --- */
+        #materials-container {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            margin-top: 2.5rem;
+        }
+        
+        #materials-container h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--gray-200);
+            padding-bottom: 0.75rem;
+        }
+        
+        /* UPDATED Styles for Material Link */
+        .material-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--gray-100);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--gray-200);
+            margin-bottom: 0.5rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--gray-800);
+            font-weight: 500;
+        }
+        .material-link:hover {
+            border-color: var(--blue-600);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+            color: var(--blue-600);
+        }
+        .material-link svg {
+            width: 16px;
+            height: 16px;
+            color: var(--gray-500);
+            transition: color 0.2s ease;
+        }
+        .material-link:hover svg {
+            color: var(--blue-600);
+        }
+        
+        /* --- Mobile & Responsive --- */
+        #sidebar-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 25;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        #sidebar-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 1023px) {
+            .main-content-area {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            #open-sidebar-btn { display: none; }
+            #sidebar {
+                position: sticky;
+                transform: translateX(0);
+            }
+            .main-content-area {
+                margin-left: 20px;
+                padding: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="global-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button id="open-sidebar-btn" title="Open course menu">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+                <a href="#" class="header-logo">
+                    <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755751904/SkillWell_Logo_alma5m.png" alt="SkillWell Logo">
+                </a>
+            </div>
+            <button id="logout-btn"><a href="./index.html">Log Out</a></button>
+        </div>
+    </header>
+
+    <div id="app">
+        <aside id="sidebar">
+            <div class="sidebar-header">
+                <h2>Course Content</h2>
+            </div>
+            <nav id="course-navigation"></nav>
+        </aside>
+
+        <main class="main-content-area">
+            <div class="content-grid">
+                <header id="content-header">
+                    <p id="content-breadcrumb">Welcome</p>
+                    <h1 id="content-title">Select a lesson to begin</h1>
+                </header>
+                
+                <div id="video-player-container">
+                    <iframe id="video-player" src="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"
+></iframe>
+
+                    <!-- <video id="video-player" width="100%" height="100%" controls controlsList="nodownload" oncontextmenu="return false;" >
+                      <source src=" your-secure-video.mp4" type="video/mp4"></video> 
+                       -->
+
+                    <!-- <iframe frameBorder='0' width='640' height='360' webkitallowfullscreen mozallowfullscreen allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation" src="https://www.awesomescreenshot.com/embed?id=37059402&shareKey=1df324d1713b9e99e5b938be2a01ad62"></iframe> -->
+                </div>
+                
+                <div id="nav-btn-container">
+                    <button id="prev-btn" class="nav-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+                        <span>Previous</span>
+                    </button>
+                    <button id="next-btn" class="nav-btn">
+                        <span>Next Lesson</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </button>
+                </div>
+
+                <div id="materials-container">
+                    <h3>Lesson Materials</h3>
+                    <div id="materials-list">
+                        </div>
+                </div>
+
+            </div>
+        </main>
+        
+        <div id="sidebar-overlay"></div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const courseData = [
+            { id: 'week1', title: 'Week 1 :', days: [
+                { title: 'DAY 1', videoId: '43192868&shareKey=88157a72a541b50a437a763ae43496ff', completed: false, materials: [
+                    { name: 'Course Syllabus.pdf', url: '#' },
+                    { name: 'Lesson 1 Slides.pptx', url: '#' }
+                ]},
+                { title: 'DAY 2', videoId: '43210237&shareKey=d3d24e18560b9f7d508e0af923bf4d51', completed: false, materials: [
+                    { name: 'HTML Cheat Sheet.pdf', url: '#' }
+                ]},
+                           ]},
+            { id: 'week2', title: 'Week 2: ', days: [
+                { title: 'DAY 3', videoId: '43443676&shareKey=e0963ecb76ef573fa22e3a961e3b8fbb', completed: false, materials: [{ name: 'CSS Selectors Guide.pdf', url: '#' }] },
+                { title: 'DAY 4', videoId: 'Ofo1VqgK-r8', completed: false, materials: [] }
+            ]},
+            { id: 'week3', title: 'Week 3: Advanced CSS Layouts', days: [
+                { title: 'CSS Flexbox Explained', videoId: '3YW65K62sT0', completed: false, materials: [] },
+                { title: 'Mastering CSS Grid', videoId: '9zBsdzdE4sM', completed: false, materials: [] }
+            ]},
+            { id: 'week4', title: 'Week 4: JavaScript Fundamentals', days: [
+                { title: 'JavaScript Crash Course', videoId: 'W6NZfCO5eT4', completed: false, materials: [] },
+                { title: 'Variables, Data Types & Operators', videoId: 'jS4aFq5-91M', completed: false, materials: [] }
+            ]},
+            { id: 'week5', title: 'Week 5: JS DOM Manipulation', days: [
+                { title: 'What is the DOM?', videoId: 'y17wo2Jnbg8', completed: false, materials: [] },
+                { title: 'Selecting & Changing Elements', videoId: 'EaB8Gk_a_3w', completed: false, materials: [] }
+            ]},
+            { id: 'week6', title: 'Week 6: Asynchronous JavaScript', days: [
+                { title: 'Callbacks, Promises, Async/Await', videoId: '8aGhZQkoFbQ', completed: false, materials: [] },
+                { title: 'Real-world Examples', videoId: '23B6H_pW4eM', completed: false, materials: [] }
+            ]},
+            { id: 'week7', title: 'Week 7: Working with APIs', days: [
+                { title: 'Introduction to APIs', videoId: 'Oive66jrwBs', completed: false, materials: [] },
+                { title: 'The Fetch API', videoId: 'cuEtnrL9-H0', completed: false, materials: [] }
+            ]},
+            { id: 'week8', title: 'Week 8: Introduction to React', days: [
+                { title: 'What is React?', videoId: 'bMknfKXIFA8', completed: false, materials: [] },
+                { title: 'Components, Props & State', videoId: 'SqcY0GlETPk', completed: false, materials: [] }
+            ]},
+            { id: 'week9', title: 'Week 9: React Hooks', days: [
+                { title: 'useState & useEffect', videoId: 'tnc_2kI-G4A', completed: false, materials: [] },
+                { title: 'useContext & useReducer', videoId: '9Qysfx3I_g4', completed: false, materials: [] }
+            ]},
+            { id: 'week10', title: 'Week 10: State Management', days: [
+                { title: 'Prop Drilling vs. Context', videoId: '90hYxGEaAqM', completed: false, materials: [] },
+                { title: 'Introduction to Redux', videoId: 'NqO8jN7I8ms', completed: false, materials: [] }
+            ]},
+            { id: 'week11', title: 'Week 11: Backend Basics', days: [
+                { title: 'Intro to Node.js & Express', videoId: 'SccSCuHhOw0', completed: false, materials: [] },
+                { title: 'Building a Simple API', videoId: '0D6-W-c_gqc', completed: false, materials: [] }
+            ]},
+            { id: 'week12', title: 'Week 12: Deployment', days: [
+                { title: 'Deploying a Web App', videoId: '21s88-p8wIE', completed: false, materials: [] },
+                { title: 'Final Project Showcase', videoId: '8ev9Am2tO-A', completed: false, materials: [] }
+            ]}
+        ];
+
+        let currentState = { weekIndex: 0, dayIndex: 0 };
+
+        const navigationContainer = document.getElementById('course-navigation');
+        const contentTitle = document.getElementById('content-title');
+        const contentBreadcrumb = document.getElementById('content-breadcrumb');
+        const videoPlayer = document.getElementById('video-player');
+        const sidebar = document.getElementById('sidebar');
+        const openSidebarBtn = document.getElementById('open-sidebar-btn');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const materialsList = document.getElementById('materials-list');
+
+        const icons = {
+            completed: `<svg class="status-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="var(--green-500)"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>`,
+            notCompleted: `<svg class="status-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="color: var(--slate-300);"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>`,
+        };
+
+        function renderSidebar() {
+            navigationContainer.innerHTML = '';
+            courseData.forEach((week, weekIdx) => {
+                const weekElement = document.createElement('div');
+                const totalDays = week.days.length;
+                const completedDays = week.days.filter(d => d.completed).length;
+                const weekProgress = totalDays > 0 ? (completedDays / totalDays) * 100 : 0;
+                const isExpanded = currentState.weekIndex === weekIdx;
+
+                weekElement.innerHTML = `
+                    <button class="week-toggle ${isExpanded ? '' : 'collapsed'}" data-week-index="${weekIdx}">
+                        <div class="week-toggle-content">
+                            <span>${week.title}</span>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: ${weekProgress}%"></div>
+                            </div>
+                        </div>
+                        <svg class="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div class="day-list ${isExpanded ? '' : 'hidden'}"></div>`;
+                
+                const dayList = weekElement.querySelector('.day-list');
+                week.days.forEach((day, dayIdx) => {
+                    const dayElement = document.createElement('a');
+                    dayElement.href = '#';
+                    dayElement.className = `day-link ${currentState.weekIndex === weekIdx && currentState.dayIndex === dayIdx ? 'active' : ''}`;
+                    dayElement.dataset.weekIndex = weekIdx;
+                    dayElement.dataset.dayIndex = dayIdx;
+                    
+                    const statusIcon = day.completed ? icons.completed : icons.notCompleted;
+                    dayElement.innerHTML = `${statusIcon} <span>${dayIdx + 1}. ${day.title}</span>`;
+                    dayList.appendChild(dayElement);
+                });
+                navigationContainer.appendChild(weekElement);
+            });
+        }
+        
+        // UPDATED function to include the redirect icon
+        function renderMaterials(day) {
+            materialsList.innerHTML = ''; 
+            if (day.materials && day.materials.length > 0) {
+                day.materials.forEach(material => {
+                    const link = document.createElement('a');
+                    link.href = material.url;
+                    link.className = 'material-link';
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    
+                    // Add the text and the redirect icon SVG
+                    link.innerHTML = `
+                        <span>${material.name}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                            <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                        </svg>
+                    `;
+                    materialsList.appendChild(link);
+                });
+            } else {
+                materialsList.innerHTML = '<p style="color: var(--gray-500);">No materials for this lesson.</p>';
+            }
+        }
+        
+        function updateNavButtons() {
+            prevBtn.disabled = (currentState.weekIndex === 0 && currentState.dayIndex === 0);
+            const lastWeekIndex = courseData.length - 1;
+            const lastDayIndex = courseData[lastWeekIndex].days.length - 1;
+            nextBtn.disabled = (currentState.weekIndex === lastWeekIndex && currentState.dayIndex === lastDayIndex);
+        }
+
+        function renderContent(weekIdx, dayIdx) {
+            const week = courseData[weekIdx];
+            if (!week || !week.days[dayIdx]) return;
+
+            const day = week.days[dayIdx];
+            currentState = { weekIndex: weekIdx, dayIndex: dayIdx };
+            
+            contentTitle.textContent = day.title;
+            contentBreadcrumb.textContent = `${week.title} / Lesson ${dayIdx + 1}`;
+            id=
+            videoPlayer.src = `https://www.awesomescreenshot.com/embed?id=${day.videoId}`;
+            
+            
+            renderMaterials(day);
+            updateNavButtons();
+            renderSidebar(); 
+        }
+        
+        function navigate(offset) {
+            let { weekIndex, dayIndex } = currentState;
+            if (offset > 0) {
+                if(courseData[weekIndex].days[dayIndex]) courseData[weekIndex].days[dayIndex].completed = true;
+                if (dayIndex < courseData[weekIndex].days.length - 1) { dayIndex++; } 
+                else if (weekIndex < courseData.length - 1) { weekIndex++; dayIndex = 0; }
+            } else {
+                if (dayIndex > 0) { dayIndex--; } 
+                else if (weekIndex > 0) { weekIndex--; dayIndex = courseData[weekIndex].days.length - 1; }
+            }
+            if (weekIndex !== currentState.weekIndex || dayIndex !== currentState.dayIndex) {
+                 renderContent(weekIndex, dayIndex);
+            }
+        }
+
+        navigationContainer.addEventListener('click', (e) => {
+            const weekToggle = e.target.closest('.week-toggle');
+            const dayLink = e.target.closest('.day-link');
+
+            if (weekToggle) {
+                const dayList = weekToggle.nextElementSibling;
+                weekToggle.classList.toggle('collapsed');
+                dayList.classList.toggle('hidden');
+            }
+
+            if (dayLink) {
+                e.preventDefault();
+                const weekIdx = parseInt(dayLink.dataset.weekIndex);
+                const dayIdx = parseInt(dayLink.dataset.dayIndex);
+                renderContent(weekIdx, dayIdx);
+                if (window.innerWidth < 1024) toggleSidebar(false);
+            }
+        });
+        
+        prevBtn.addEventListener('click', () => navigate(-1));
+        nextBtn.addEventListener('click', () => navigate(1));
+        
+        document.addEventListener('keydown', (e) => {
+            if(document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+            if (e.key === 'ArrowRight') { navigate(1); } 
+            else if (e.key === 'ArrowLeft') { navigate(-1); }
+        });
+
+        const toggleSidebar = (show) => {
+            sidebar.classList.toggle('open', show);
+            sidebarOverlay.classList.toggle('visible', show);
+        };
+
+        openSidebarBtn.addEventListener('click', () => toggleSidebar(true));
+        sidebarOverlay.addEventListener('click', () => toggleSidebar(false));
+
+        renderContent(currentState.weekIndex, currentState.dayIndex);
+    });
+    </script>
+</body>
+</html>
