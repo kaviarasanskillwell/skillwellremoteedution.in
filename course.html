@@ -1,725 +1,731 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SkillWell Course</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillWell Course</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base & Theming --- */
+        :root {
+            --slate-50: #293253;      /* Sidebar Background */
+            --slate-300: #82b2f5ff;    /* Breadcrumb Text (Lightened for contrast) */
+            --slate-700: #4b5e79ff;    /* Sidebar Hover */
+            --slate-800: #1f2937;      /* Darker Accent */
+            --slate-900: #111827;      /* Nav Button Background */
 
-  <style>
-    :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --bg: #f3f4f6;
-      --panel: #ffffff;
-      --sidebar-bg: #0b1120;
-      --sidebar-accent: #1e293b;
-      --sidebar-border: #1f2937;
-      --border: #e5e7eb;
-      --muted: #6b7280;
-      --text: #111827;
-      --text-soft: #4b5563;
-      --radius-lg: 18px;
-      --radius: 10px;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.15);
-      --shadow-card: 0 8px 24px rgba(15, 23, 42, 0.12);
-      --green: #10b981;
-    }
+            --gray-100: #F3F4F6;      /* Main Background */
+            --gray-200: #e5e7eb;      /* Borders */
+            --gray-500: #6B7280;      /* Muted Text */
+            --gray-800: #1F2937;      /* Primary Text */
+            --gray-900: #ffffffff;    /* White Text on Dark BG */
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+            --blue-100: #3b82f6;      /* Active Sidebar Item BG */
+            --blue-600: #2563EB;      /* Primary Button */
+            --blue-700: #1D4ED8;      /* Primary Button Hover */
+            
+            --white: #FFFFFF;
+            --black: #000000;
+            --green-500: #10b981;     /* Progress Bar Fill */
 
-    html, body {
-      height: 100%;
-      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
-      color: var(--text);
-    }
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
 
-    body {
-      background: radial-gradient(circle at top, #e0ecff 0, #f3f4f6 45%, #ffffff 100%);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    a, button {
-      font-family: inherit;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-    /* ===== GLOBAL HEADER (matches home/login) ===== */
-    .global-header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 64px;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
-      z-index: 40;
-    }
+        button, a {
+            cursor: pointer;
+            border: none;
+            background: none;
+            text-decoration: none;
+            color: inherit;
+            font-family: 'Inter', sans-serif;
+        }
 
-    .header-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      height: 100%;
-      padding: 0 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+        /* --- Global Header --- */
+        .global-header {
+            background-color: var(--white);
+            color: var(--gray-800);
+            box-shadow: var(--shadow-sm);
+            border-bottom: 1px solid var(--gray-200);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 40;
+            height: 65px;
+        }
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 1.5rem;
+            
+            margin: 0 auto;
+        }
+        
+        .header-left { display: flex; align-items: center; }
 
-    .header-logo img {
-      height: 52px;
-      width: auto;
-      display: block;
-    }
+        .header-logo img {
+            height: 150px;
+            width: 180px;
+            padding-top: 10px; /* Prevents logo from stretching */
+        }
 
-    #open-sidebar-btn {
-      border: none;
-      background: none;
-      padding: 6px;
-      border-radius: 10px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
+        #open-sidebar-btn {
+            padding: 0.5rem;
+            margin-right: 0.5rem;
+            border-radius: 0.375rem;
+        }
+        #open-sidebar-btn svg {
+            width: 1.5rem; height: 1.5rem;
+            color: var(--gray-500);
+        }
 
-    #open-sidebar-btn svg {
-      width: 22px; height: 22px;
-      color: var(--muted);
-    }
+        #logout-btn {
+            background-color: #ff0000;
+            color: var(--white);
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        #logout-btn:hover {
+            background-color: #8B0000;
+        }
 
-    @media (min-width: 1024px) {
-      #open-sidebar-btn { display: none; }
-    }
 
-    #logout-btn {
-      border: none;
-      background: linear-gradient(135deg, #ef4444, #b91c1c);
-      color: #ffffff;
-      padding: 8px 18px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 12px 30px rgba(220, 38, 38, 0.5);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: transform 0.12s, box-shadow 0.18s;
-    }
+        /* --- Main Layout --- */
+        #app {
+            display: flex;
+            padding-top: 65px; /* Offset for fixed header */
+        }
 
-    #logout-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 40px rgba(220, 38, 38, 0.6);
-    }
+        /* --- Sidebar --- */
+        #sidebar {
+            background-color: var(--slate-50);
+            color: var(--gray-900);
+            width: 320px;
+            flex-shrink: 0;
+            height: calc(100vh - 65px);
+            position: fixed;
+            top: 65px; left: 0;
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            border-right: 1px solid #374151;
+        }
+        
+        #sidebar.open {
+            transform: translateX(0);
+            box-shadow: var(--shadow-lg);
+        }
 
-    #logout-btn a {
-      color: inherit;
-      text-decoration: none;
-    }
+        .sidebar-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--slate-700);
+        }
+        
+        .sidebar-header h2 {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+        
+        #course-navigation {
+            padding: 1rem;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        #course-navigation::-webkit-scrollbar { width: 8px; }
+        #course-navigation::-webkit-scrollbar-track { background: var(--slate-50); }
+        #course-navigation::-webkit-scrollbar-thumb { background: var(--slate-700); border-radius: 4px; }
+        #course-navigation::-webkit-scrollbar-thumb:hover { background: var(--slate-300); }
 
-    /* ===== LAYOUT ===== */
-    #app {
-      display: flex;
-      padding-top: 64px;
-      min-height: 100vh;
-    }
 
-    /* ===== SIDEBAR ===== */
-    #sidebar {
-      width: 300px;
-      flex-shrink: 0;
-      background: radial-gradient(circle at top, #1f2937 0, var(--sidebar-bg) 55%);
-      border-right: 1px solid var(--sidebar-border);
-      color: #e5e7eb;
-      position: fixed;
-      top: 64px;
-      left: 0;
-      height: calc(100vh - 64px);
-      display: flex;
-      flex-direction: column;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease-in-out;
-      z-index: 30;
-    }
+        /* --- Sidebar Navigation Items --- */
+        .week-toggle {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.2s;
+            margin-bottom: 0.5rem;
+        }
+        .week-toggle:hover {
+            background-color: var(--slate-700);
+        }
+        
+        .week-toggle-content span {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .progress-bar-bg {
+            background-color: var(--slate-700);
+            border-radius: 9999px;
+            height: 6px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            background-color: var(--green-500);
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.4s ease;
+        }
 
-    #sidebar.open {
-      transform: translateX(0);
-      box-shadow: var(--shadow-soft);
-    }
+        .week-toggle .arrow { width: 1.25rem; height: 1.25rem; transition: transform 0.3s; }
+        .week-toggle.collapsed .arrow { transform: rotate(-90deg); }
 
-    .sidebar-header {
-      padding: 14px 18px;
-      border-bottom: 1px solid rgba(55, 65, 81, 0.8);
-    }
+        .day-list {
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, margin-top 0.4s ease-in-out;
+        }
+        .day-list.hidden {
+            max-height: 0;
+            margin-top: 0;
+        }
+        
+        .day-link {
+            display: flex;
+            align-items: center;
+            padding: 0.6rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            transition: background-color 0.2s, color 0.2s;
+            margin-bottom: 0.25rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+        .day-link:hover {
+            background-color: var(--slate-700);
+        }
+        .day-link.active {
+            background-color: var(--blue-100);
+            color: var(--white);
+            font-weight: 600;
+        }
 
-    .sidebar-header h2 {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #e5e7eb;
-    }
+        .day-link .status-icon {
+            position: absolute;
+            left: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1rem;
+        }
+        
+        /* --- Main Content --- */
+        .main-content-area {
+            flex-grow: 1;
+            padding: 2rem;
+            transition: margin-left 0.3s ease-in-out;
+            margin-left: 0;
+        }
 
-    #course-navigation {
-      padding: 12px 12px 14px;
-      overflow-y: auto;
-      flex: 1;
-    }
+        #content-header {
+            margin-bottom: 2rem;
+        }
+        
+        #content-breadcrumb {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
 
-    #course-navigation::-webkit-scrollbar { width: 8px; }
-    #course-navigation::-webkit-scrollbar-track { background: transparent; }
-    #course-navigation::-webkit-scrollbar-thumb {
-      background: rgba(75, 85, 99, 0.9);
-      border-radius: 999px;
-    }
+        #content-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--slate-800);
+            line-height: 1.2;
+        }
+        
+        .content-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-    .week-toggle {
-      width: 100%;
-      border: none;
-      background: none;
-      text-align: left;
-      padding: 10px 10px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      transition: background 0.2s;
-      color: #e5e7eb;
-      margin-bottom: 4px;
-    }
+        #video-player-container {
+            background-color: var(--black);
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            margin-bottom: 1.5rem;
+        }
+        
+        #video-player {
+            width: 100%; height: 100%; border: 0;
+        }
+        
+        #nav-btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        
+        .nav-btn {
+            background-color: var(--slate-900);
+            color: var(--white);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-btn:hover {
+            background-color: var(--gray-800);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        .nav-btn:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
 
-    .week-toggle:hover {
-      background: rgba(30, 64, 175, 0.4);
-    }
+        /* --- Materials Section --- */
+        #materials-container {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            margin-top: 2.5rem;
+        }
+        
+        #materials-container h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--gray-200);
+            padding-bottom: 0.75rem;
+        }
+        
+        /* UPDATED Styles for Material Link */
+        .material-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--gray-100);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--gray-200);
+            margin-bottom: 0.5rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: var(--gray-800);
+            font-weight: 500;
+        }
+        .material-link:hover {
+            border-color: var(--blue-600);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+            color: var(--blue-600);
+        }
+        .material-link svg {
+            width: 16px;
+            height: 16px;
+            color: var(--gray-500);
+            transition: color 0.2s ease;
+        }
+        .material-link:hover svg {
+            color: var(--blue-600);
+        }
+        
+        /* --- Mobile & Responsive --- */
+        #sidebar-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 25;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        #sidebar-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
 
-    .week-toggle-content > span {
-      font-size: 13px;
-      font-weight: 600;
-    }
+        @media (max-width: 1023px) {
+            .main-content-area {
+                padding: 1.5rem 1rem;
+            }
+        }
 
-    .progress-bar-bg {
-      background: rgba(55, 65, 81, 0.9);
-      height: 6px;
-      border-radius: 999px;
-      margin-top: 6px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      background: var(--green);
-      height: 100%;
-      border-radius: 999px;
-      transition: width 0.4s ease;
-    }
-
-    .week-toggle .arrow {
-      width: 18px;
-      height: 18px;
-      color: #9ca3af;
-      transition: transform 0.25s;
-    }
-
-    .week-toggle.collapsed .arrow {
-      transform: rotate(-90deg);
-    }
-
-    .day-list {
-      padding-left: 6px;
-      margin-top: 4px;
-      max-height: 900px;
-      overflow: hidden;
-      transition: max-height 0.35s ease, margin-top 0.35s ease;
-    }
-
-    .day-list.hidden {
-      max-height: 0;
-      margin-top: 0;
-    }
-
-    .day-link {
-      position: relative;
-      display: flex;
-      align-items: center;
-      padding: 7px 9px 7px 26px;
-      border-radius: 8px;
-      font-size: 12px;
-      color: #d1d5db;
-      margin-bottom: 2px;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .day-link:hover {
-      background: rgba(55, 65, 81, 0.9);
-    }
-
-    .day-link.active {
-      background: #1d4ed8;
-      color: #f9fafb;
-      font-weight: 600;
-    }
-
-    .day-link .status-icon {
-      position: absolute;
-      left: 8px;
-      width: 14px;
-      height: 14px;
-    }
-
-    /* ===== OVERLAY FOR MOBILE ===== */
-    #sidebar-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.55);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s, visibility 0.3s;
-      z-index: 25;
-    }
-
-    #sidebar-overlay.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* ===== MAIN CONTENT ===== */
-    .main-content-area {
-      flex: 1;
-      padding: 22px 18px 26px;
-      margin-left: 0;
-      transition: margin-left 0.3s;
-    }
-
-    .content-grid {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    #content-header {
-      margin-bottom: 18px;
-    }
-
-    #content-breadcrumb {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
-
-    #content-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    #video-player-container {
-      background: #000000;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      aspect-ratio: 16 / 9;
-      margin-top: 16px;
-    }
-
-    #video-player {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    #nav-btn-container {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 18px;
-      gap: 10px;
-    }
-
-    .nav-btn {
-      flex: 1;
-      border: none;
-      background: #111827;
-      color: #f9fafb;
-      border-radius: 999px;
-      padding: 10px 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4);
-      transition: transform 0.12s, box-shadow 0.18s, background 0.18s;
-    }
-
-    .nav-btn svg { width: 18px; height: 18px; }
-
-    .nav-btn:hover {
-      background: #020617;
-      transform: translateY(-1px);
-      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.5);
-    }
-
-    .nav-btn:disabled {
-      background: #9ca3af;
-      box-shadow: none;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* ===== MATERIALS ===== */
-    #materials-container {
-      margin-top: 24px;
-      background: var(--panel);
-      border-radius: 16px;
-      padding: 16px 16px 14px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-card);
-    }
-
-    #materials-container h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-    }
-
-    .material-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 11px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: #f9fafb;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-soft);
-      text-decoration: none;
-      margin-bottom: 6px;
-      transition: border-color 0.18s, box-shadow 0.18s, transform 0.1s, color 0.18s, background 0.18s;
-    }
-
-    .material-link:hover {
-      border-color: var(--primary);
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
-      transform: translateY(-1px);
-      color: var(--primary);
-      background: #eef2ff;
-    }
-
-    .material-link svg {
-      width: 16px;
-      height: 16px;
-      color: var(--muted);
-    }
-
-    .material-link:hover svg {
-      color: var(--primary);
-    }
-
-    #materials-list p {
-      font-size: 13px;
-      color: var(--muted);
-      margin: 0;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (min-width: 1024px) {
-      #sidebar {
-        position: sticky;
-        top: 64px;
-        transform: translateX(0);
-      }
-      #sidebar-overlay { display: none; }
-      .main-content-area {
-        margin-left: 300px;
-        padding: 26px 26px 30px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      #content-title { font-size: 20px; }
-      .main-content-area { padding: 18px 12px 24px; }
-    }
-  </style>
+        @media (min-width: 1024px) {
+            #open-sidebar-btn { display: none; }
+            #sidebar {
+                position: sticky;
+                transform: translateX(0);
+            }
+            .main-content-area {
+                margin-left: 20px;
+                padding: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="global-header">
-    <div class="header-container">
-      <div class="header-left">
-        <button id="open-sidebar-btn" title="Open course menu">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-        <a href="./index.html" class="header-logo">
-          <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755751904/SkillWell_Logo_alma5m.png" alt="SkillWell Logo">
-        </a>
-      </div>
-      <button id="logout-btn">
-        <span>Log out</span>
-      </button>
-    </div>
-  </header>
 
-  <div id="app">
-    <aside id="sidebar">
-      <div class="sidebar-header">
-        <h2>Course content</h2>
-      </div>
-      <nav id="course-navigation"></nav>
-    </aside>
-
-    <div id="sidebar-overlay"></div>
-
-    <main class="main-content-area">
-      <div class="content-grid">
-        <header id="content-header">
-          <p id="content-breadcrumb">Welcome</p>
-          <h1 id="content-title">Select a lesson to begin</h1>
-        </header>
-
-        <div id="video-player-container">
-          <iframe
-            id="video-player"
-            src=""
-            title="SkillWell course video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            sandbox="allow-scripts allow-same-origin allow-presentation"
-          ></iframe>
+    <header class="global-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button id="open-sidebar-btn" title="Open course menu">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+                <a href="#" class="header-logo">
+                    <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755751904/SkillWell_Logo_alma5m.png" alt="SkillWell Logo">
+                </a>
+            </div>
+            <button id="logout-btn"><a href="./index.html">Log Out</a></button>
         </div>
+    </header>
 
-        <div id="nav-btn-container">
-          <button id="prev-btn" class="nav-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
-            </svg>
-            <span>Previous</span>
-          </button>
-          <button id="next-btn" class="nav-btn">
-            <span>Next lesson</span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-            </svg>
-          </button>
-        </div>
+    <div id="app">
+        <aside id="sidebar">
+            <div class="sidebar-header">
+                <h2>Course Content</h2>
+            </div>
+            <nav id="course-navigation"></nav>
+        </aside>
 
-        <section id="materials-container">
-          <h3>Lesson materials</h3>
-          <div id="materials-list"></div>
-        </section>
-      </div>
-    </main>
-  </div>
+        <main class="main-content-area">
+            <div class="content-grid">
+                <header id="content-header">
+                    <p id="content-breadcrumb">Welcome</p>
+                    <h1 id="content-title">Select a lesson to begin</h1>
+                </header>
+                
+                <div id="video-player-container">
+                    <iframe id="video-player" src="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation"
+></iframe>
 
-  <script>
-    // Basic logout: clear secret and go to login
-    document.getElementById("logout-btn").addEventListener("click", () => {
-      localStorage.removeItem("secret");
-      window.location.href = "./login.html";
-    });
+                    <!-- <video id="video-player" width="100%" height="100%" controls controlsList="nodownload" oncontextmenu="return false;" >
+                      <source src=" your-secure-video.mp4" type="video/mp4"></video> 
+                       -->
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const secret = localStorage.getItem("secret");
-      if (!secret) {
-        window.location.href = "./login.html";
-        return;
-      }
-
-      // OPTIONAL: keep or remove this old security check; here it's removed from broken URL.
-
-      const courseData = [
-        { id: 'week1', title: 'Week 1:', days: [
-          { title: 'DAY 1', videoId: '43192868&shareKey=88157a72a541b50a437a763ae43496ff', completed: false,
-            materials: [{ name: 'Course Syllabus.pdf', url: '#' }, { name: 'Lesson 1 Slides.pptx', url: '#' }]},
-          { title: 'DAY 2', videoId: '43210237&shareKey=d3d24e18560b9f7d508e0af923bf4d51', completed: false,
-            materials: [{ name: 'HTML Cheat Sheet.pdf', url: '#' }]}
-        ]},
-        { id: 'week2', title: 'Week 2:', days: [
-          { title: 'DAY 3', videoId: '43443676&shareKey=e0963ecb76ef573fa22e3a961e3b8fbb', completed: false, materials: [] },
-          { title: 'DAY 4', videoId: 'Ofo1VqgK-r8', completed: false, materials: [] }
-        ]},
-        // ... keep your other weeks exactly as you had ...
-      ];
-
-      let currentState = { weekIndex: 0, dayIndex: 0 };
-
-      const navigationContainer = document.getElementById("course-navigation");
-      const contentTitle = document.getElementById("content-title");
-      const contentBreadcrumb = document.getElementById("content-breadcrumb");
-      const videoPlayer = document.getElementById("video-player");
-      const sidebar = document.getElementById("sidebar");
-      const openSidebarBtn = document.getElementById("open-sidebar-btn");
-      const sidebarOverlay = document.getElementById("sidebar-overlay");
-      const nextBtn = document.getElementById("next-btn");
-      const prevBtn = document.getElementById("prev-btn");
-      const materialsList = document.getElementById("materials-list");
-
-      const icons = {
-        completed: `<svg class="status-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="var(--green)"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>`,
-        notCompleted: `<svg class="status-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="color:#9ca3af;"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>`
-      };
-
-      function renderMaterials(day) {
-        materialsList.innerHTML = "";
-        if (day.materials && day.materials.length) {
-          day.materials.forEach(mat => {
-            const link = document.createElement("a");
-            link.href = mat.url;
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-            link.className = "material-link";
-            link.innerHTML = `
-              <span>${mat.name}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                <path fill="currentColor" fill-rule="evenodd"
-                  d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
-                <path fill="currentColor" fill-rule="evenodd"
-                  d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
-              </svg>`;
-            materialsList.appendChild(link);
-          });
-        } else {
-          materialsList.innerHTML = `<p>No additional materials for this lesson.</p>`;
-        }
-      }
-
-      function updateNavButtons() {
-        prevBtn.disabled = (currentState.weekIndex === 0 && currentState.dayIndex === 0);
-        const lastWeek = courseData.length - 1;
-        const lastDay = courseData[lastWeek].days.length - 1;
-        nextBtn.disabled = (currentState.weekIndex === lastWeek && currentState.dayIndex === lastDay);
-      }
-
-      function renderSidebar() {
-        navigationContainer.innerHTML = "";
-        courseData.forEach((week, wIdx) => {
-          const wrapper = document.createElement("div");
-          const total = week.days.length;
-          const completed = week.days.filter(d => d.completed).length;
-          const progress = total ? (completed / total) * 100 : 0;
-          const expanded = currentState.weekIndex === wIdx;
-
-          wrapper.innerHTML = `
-            <button class="week-toggle ${expanded ? "" : "collapsed"}" data-week-index="${wIdx}">
-              <div class="week-toggle-content">
-                <span>${week.title}</span>
-                <div class="progress-bar-bg">
-                  <div class="progress-bar-fill" style="width:${progress}%"></div>
+                    <!-- <iframe frameBorder='0' width='640' height='360' webkitallowfullscreen mozallowfullscreen allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation" src="https://www.awesomescreenshot.com/embed?id=37059402&shareKey=1df324d1713b9e99e5b938be2a01ad62"></iframe> -->
                 </div>
-              </div>
-              <svg class="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div class="day-list ${expanded ? "" : "hidden"}"></div>
-          `;
+                
+                <div id="nav-btn-container">
+                    <button id="prev-btn" class="nav-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+                        <span>Previous</span>
+                    </button>
+                    <button id="next-btn" class="nav-btn">
+                        <span>Next Lesson</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </button>
+                </div>
 
-          const dayList = wrapper.querySelector(".day-list");
-          week.days.forEach((day, dIdx) => {
-            const a = document.createElement("a");
-            a.href = "#";
-            a.className = `day-link ${currentState.weekIndex === wIdx && currentState.dayIndex === dIdx ? "active" : ""}`;
-            a.dataset.weekIndex = wIdx;
-            a.dataset.dayIndex = dIdx;
-            a.innerHTML = `${day.completed ? icons.completed : icons.notCompleted}<span>${dIdx + 1}. ${day.title}</span>`;
-            dayList.appendChild(a);
-          });
+                <div id="materials-container">
+                    <h3>Lesson Materials</h3>
+                    <div id="materials-list">
+                        </div>
+                </div>
 
-          navigationContainer.appendChild(wrapper);
+            </div>
+        </main>
+        
+        <div id="sidebar-overlay"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+    const secret = localStorage.getItem('secret');
+
+    // If no secret, redirect to login
+    if (!secret) {
+        window.location.href = "https://skillwelledu.netlify.app/login";
+        return;
+    }
+
+    try {
+        const response = await fetch('https://skillwell-loginapi.onrender.com/skillwell/v1/logapi/u_security_checku/', {
+            method: 'GET',
+            headers: {
+                'accept': 'application/json',
+                'Authorization': `Bearer ${secret}`
+            }
         });
-      }
 
-      function renderContent(wIdx, dIdx) {
-        const week = courseData[wIdx];
-        const day = week && week.days[dIdx];
-        if (!day) return;
+        const data = await response.json();
 
-        currentState = { weekIndex: wIdx, dayIndex: dIdx };
-        contentTitle.textContent = day.title;
-        contentBreadcrumb.textContent = `${week.title} • Lesson ${dIdx + 1}`;
-        videoPlayer.src = `https://www.awesomescreenshot.com/embed?id=${day.videoId}`;
-        renderMaterials(day);
-        updateNavButtons();
-        renderSidebar();
-      }
-
-      function navigate(offset) {
-        let { weekIndex, dayIndex } = currentState;
-
-        if (offset > 0) {
-          courseData[weekIndex].days[dayIndex].completed = true;
-          if (dayIndex < courseData[weekIndex].days.length - 1) {
-            dayIndex++;
-          } else if (weekIndex < courseData.length - 1) {
-            weekIndex++;
-            dayIndex = 0;
-          }
+        // If response contains 'sub' and 'exp', allow page access
+        if (data.sub && data.exp) {
+            console.log('User authenticated:', data.sub);
+            // Continue loading your course page
         } else {
-          if (dayIndex > 0) {
-            dayIndex--;
-          } else if (weekIndex > 0) {
-            weekIndex--;
-            dayIndex = courseData[weekIndex].days.length - 1;
-          }
+            // Invalid secret, redirect to login
+            window.location.href = "C:\Users\arulj\Downloads\login.html";
+        }
+    } catch (err) {
+        console.error('Security check failed:', err);
+        window.location.href = "https://skillwelledu.netlify.app/login";
+    }
+
+    // ============================
+    // Your existing course page JS
+    // ============================
+    const courseData = [
+        // ... your course data ...
+    ];
+
+    // ... rest of your current code to render sidebar, videos, etc. ...
+
+});
+    document.addEventListener('DOMContentLoaded', () => {
+        const courseData = [
+            { id: 'week1', title: 'Week 1 :', days: [
+                { title: 'DAY 1', videoId: '43192868&shareKey=88157a72a541b50a437a763ae43496ff', completed: false, materials: [
+                    { name: 'Course Syllabus.pdf', url: '#' },
+                    { name: 'Lesson 1 Slides.pptx', url: '#' }
+                ]},
+                { title: 'DAY 2', videoId: '43210237&shareKey=d3d24e18560b9f7d508e0af923bf4d51', completed: false, materials: [
+                    { name: 'HTML Cheat Sheet.pdf', url: '#' }
+                ]},
+                           ]},
+            { id: 'week2', title: 'Week 2: ', days: [
+                { title: 'DAY 3', videoId: '43443676&shareKey=e0963ecb76ef573fa22e3a961e3b8fbb', completed: false, materials: [{ name: 'CSS Selectors Guide.pdf', url: '#' }] },
+                { title: 'DAY 4', videoId: 'Ofo1VqgK-r8', completed: false, materials: [] }
+            ]},
+            { id: 'week3', title: 'Week 3: ', days: [
+                { title: 'DAY 5', videoId: '43686792&shareKey=c0ef1e9099441edaa856010802ff49ab', completed: false, materials: [] },
+                { title: 'DAY 6', videoId: '43704545&shareKey=cf768ef36a484c8005df926c46a4eb11', completed: false, materials: [] }
+            ]},
+            { id: 'week4', title: 'Week 4: ', days: [
+                { title: 'day 1', videoId: '43927160&shareKey=5df83fa3ae45513f3c4ba8d431616cfa', completed: false, materials: [] },
+                { title: 'day 2', videoId: '43976526&shareKey=1cc5431cc4462104fd3117664e422f90', completed: false, materials: [] }
+            ]},
+            { id: 'week5', title: 'Week 5: ', days: [
+                { title: 'day 1', videoId: '44179115&shareKey=2b3442c11d269f0adecf34db90e9d844', completed: false, materials: [] },
+                { title: 'day 2', videoId: '44197043&shareKey=549512901ca72fa2098893d249fb23a6', completed: false, materials: [] }
+            ]},
+            { id: 'week6', title: 'Week 6: ', days: [
+                { title: 'day 1', videoId: '8aGhZQkoFbQ', completed: false, materials: [] },
+                { title: 'day 2', videoId: '23B6H_pW4eM', completed: false, materials: [] }
+            ]},
+            { id: 'week7', title: 'Week 7: ', days: [
+                { title: 'day 1', videoId: 'Oive66jrwBs', completed: false, materials: [] },
+                { title: 'day 2', videoId: 'cuEtnrL9-H0', completed: false, materials: [] }
+            ]},
+            { id: 'week8', title: 'Week 8: Introduction to React', days: [
+                { title: 'What is React?', videoId: 'bMknfKXIFA8', completed: false, materials: [] },
+                { title: 'Components, Props & State', videoId: 'SqcY0GlETPk', completed: false, materials: [] }
+            ]},
+            { id: 'week9', title: 'Week 9: React Hooks', days: [
+                { title: 'useState & useEffect', videoId: 'tnc_2kI-G4A', completed: false, materials: [] },
+                { title: 'useContext & useReducer', videoId: '9Qysfx3I_g4', completed: false, materials: [] }
+            ]},
+            { id: 'week10', title: 'Week 10: State Management', days: [
+                { title: 'Prop Drilling vs. Context', videoId: '90hYxGEaAqM', completed: false, materials: [] },
+                { title: 'Introduction to Redux', videoId: 'NqO8jN7I8ms', completed: false, materials: [] }
+            ]},
+            { id: 'week11', title: 'Week 11: Backend Basics', days: [
+                { title: 'Intro to Node.js & Express', videoId: 'SccSCuHhOw0', completed: false, materials: [] },
+                { title: 'Building a Simple API', videoId: '0D6-W-c_gqc', completed: false, materials: [] }
+            ]},
+            { id: 'week12', title: 'Week 12: Deployment', days: [
+                { title: 'Deploying a Web App', videoId: '21s88-p8wIE', completed: false, materials: [] },
+                { title: 'Final Project Showcase', videoId: '8ev9Am2tO-A', completed: false, materials: [] }
+            ]}
+        ];
+
+        let currentState = { weekIndex: 0, dayIndex: 0 };
+
+        const navigationContainer = document.getElementById('course-navigation');
+        const contentTitle = document.getElementById('content-title');
+        const contentBreadcrumb = document.getElementById('content-breadcrumb');
+        const videoPlayer = document.getElementById('video-player');
+        const sidebar = document.getElementById('sidebar');
+        const openSidebarBtn = document.getElementById('open-sidebar-btn');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const materialsList = document.getElementById('materials-list');
+
+        const icons = {
+            completed: `<svg class="status-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="var(--green-500)"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>`,
+            notCompleted: `<svg class="status-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="color: var(--slate-300);"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>`,
+        };
+
+        function renderSidebar() {
+            navigationContainer.innerHTML = '';
+            courseData.forEach((week, weekIdx) => {
+                const weekElement = document.createElement('div');
+                const totalDays = week.days.length;
+                const completedDays = week.days.filter(d => d.completed).length;
+                const weekProgress = totalDays > 0 ? (completedDays / totalDays) * 100 : 0;
+                const isExpanded = currentState.weekIndex === weekIdx;
+
+                weekElement.innerHTML = `
+                    <button class="week-toggle ${isExpanded ? '' : 'collapsed'}" data-week-index="${weekIdx}">
+                        <div class="week-toggle-content">
+                            <span>${week.title}</span>
+                            <div class="progress-bar-bg">
+                                <div class="progress-bar-fill" style="width: ${weekProgress}%"></div>
+                            </div>
+                        </div>
+                        <svg class="arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div class="day-list ${isExpanded ? '' : 'hidden'}"></div>`;
+                
+                const dayList = weekElement.querySelector('.day-list');
+                week.days.forEach((day, dayIdx) => {
+                    const dayElement = document.createElement('a');
+                    dayElement.href = '#';
+                    dayElement.className = `day-link ${currentState.weekIndex === weekIdx && currentState.dayIndex === dayIdx ? 'active' : ''}`;
+                    dayElement.dataset.weekIndex = weekIdx;
+                    dayElement.dataset.dayIndex = dayIdx;
+                    
+                    const statusIcon = day.completed ? icons.completed : icons.notCompleted;
+                    dayElement.innerHTML = `${statusIcon} <span>${dayIdx + 1}. ${day.title}</span>`;
+                    dayList.appendChild(dayElement);
+                });
+                navigationContainer.appendChild(weekElement);
+            });
+        }
+        
+        // UPDATED function to include the redirect icon
+        function renderMaterials(day) {
+            materialsList.innerHTML = ''; 
+            if (day.materials && day.materials.length > 0) {
+                day.materials.forEach(material => {
+                    const link = document.createElement('a');
+                    link.href = material.url;
+                    link.className = 'material-link';
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    
+                    // Add the text and the redirect icon SVG
+                    link.innerHTML = `
+                        <span>${material.name}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                            <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                        </svg>
+                    `;
+                    materialsList.appendChild(link);
+                });
+            } else {
+                materialsList.innerHTML = '<p style="color: var(--gray-500);">No materials for this lesson.</p>';
+            }
+        }
+        
+        function updateNavButtons() {
+            prevBtn.disabled = (currentState.weekIndex === 0 && currentState.dayIndex === 0);
+            const lastWeekIndex = courseData.length - 1;
+            const lastDayIndex = courseData[lastWeekIndex].days.length - 1;
+            nextBtn.disabled = (currentState.weekIndex === lastWeekIndex && currentState.dayIndex === lastDayIndex);
         }
 
-        renderContent(weekIndex, dayIndex);
-      }
+        function renderContent(weekIdx, dayIdx) {
+            const week = courseData[weekIdx];
+            if (!week || !week.days[dayIdx]) return;
 
-      navigationContainer.addEventListener("click", (e) => {
-        const weekToggle = e.target.closest(".week-toggle");
-        const dayLink = e.target.closest(".day-link");
-
-        if (weekToggle) {
-          const dayList = weekToggle.nextElementSibling;
-          weekToggle.classList.toggle("collapsed");
-          dayList.classList.toggle("hidden");
+            const day = week.days[dayIdx];
+            currentState = { weekIndex: weekIdx, dayIndex: dayIdx };
+            
+            contentTitle.textContent = day.title;
+            contentBreadcrumb.textContent = `${week.title} / Lesson ${dayIdx + 1}`;
+            id=
+            videoPlayer.src = `https://www.awesomescreenshot.com/embed?id=${day.videoId}`;
+            
+            
+            renderMaterials(day);
+            updateNavButtons();
+            renderSidebar(); 
+        }
+        
+        function navigate(offset) {
+            let { weekIndex, dayIndex } = currentState;
+            if (offset > 0) {
+                if(courseData[weekIndex].days[dayIndex]) courseData[weekIndex].days[dayIndex].completed = true;
+                if (dayIndex < courseData[weekIndex].days.length - 1) { dayIndex++; } 
+                else if (weekIndex < courseData.length - 1) { weekIndex++; dayIndex = 0; }
+            } else {
+                if (dayIndex > 0) { dayIndex--; } 
+                else if (weekIndex > 0) { weekIndex--; dayIndex = courseData[weekIndex].days.length - 1; }
+            }
+            if (weekIndex !== currentState.weekIndex || dayIndex !== currentState.dayIndex) {
+                 renderContent(weekIndex, dayIndex);
+            }
         }
 
-        if (dayLink) {
-          e.preventDefault();
-          const wIdx = parseInt(dayLink.dataset.weekIndex, 10);
-          const dIdx = parseInt(dayLink.dataset.dayIndex, 10);
-          renderContent(wIdx, dIdx);
-          if (window.innerWidth < 1024) toggleSidebar(false);
-        }
-      });
+        navigationContainer.addEventListener('click', (e) => {
+            const weekToggle = e.target.closest('.week-toggle');
+            const dayLink = e.target.closest('.day-link');
 
-      prevBtn.addEventListener("click", () => navigate(-1));
-      nextBtn.addEventListener("click", () => navigate(1));
+            if (weekToggle) {
+                const dayList = weekToggle.nextElementSibling;
+                weekToggle.classList.toggle('collapsed');
+                dayList.classList.toggle('hidden');
+            }
 
-      document.addEventListener("keydown", (e) => {
-        if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
-        if (e.key === "ArrowRight") navigate(1);
-        if (e.key === "ArrowLeft") navigate(-1);
-      });
+            if (dayLink) {
+                e.preventDefault();
+                const weekIdx = parseInt(dayLink.dataset.weekIndex);
+                const dayIdx = parseInt(dayLink.dataset.dayIndex);
+                renderContent(weekIdx, dayIdx);
+                if (window.innerWidth < 1024) toggleSidebar(false);
+            }
+        });
+        
+        prevBtn.addEventListener('click', () => navigate(-1));
+        nextBtn.addEventListener('click', () => navigate(1));
+        
+        document.addEventListener('keydown', (e) => {
+            if(document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+            if (e.key === 'ArrowRight') { navigate(1); } 
+            else if (e.key === 'ArrowLeft') { navigate(-1); }
+        });
 
-      const toggleSidebar = (show) => {
-        sidebar.classList.toggle("open", show);
-        sidebarOverlay.classList.toggle("visible", show);
-      };
+        const toggleSidebar = (show) => {
+            sidebar.classList.toggle('open', show);
+            sidebarOverlay.classList.toggle('visible', show);
+        };
 
-      openSidebarBtn.addEventListener("click", () => toggleSidebar(true));
-      sidebarOverlay.addEventListener("click", () => toggleSidebar(false));
+        openSi debarBtn.addEventListener('click', () => toggleSidebar(true));
+        sidebarOverlay.addEventListener('click', () => toggleSidebar(false));
 
-      renderContent(currentState.weekIndex, currentState.dayIndex);
+        renderContent(currentState.weekIndex, currentState.dayIndex);
     });
-  </script>
+    </script>
 </body>
 </html>
+
+
+
+
