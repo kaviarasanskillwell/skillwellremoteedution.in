@@ -1,618 +1,648 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About — SkillWell</title>
-  <meta name="description" content="Affordable, industry-ready courses with real placement support. Learn. Grow. Get hired."/>
-<link rel="icon" href="https://res.cloudinary.com/da72eh5rv/image/upload/v1755751904/SkillWell_Logo_alma5m.png">
+  <meta name="description" content="SkillWell offers affordable, industry-aligned learning paths with real placement support for students and hiring teams."/>
+  <link rel="icon" href="https://res.cloudinary.com/da72eh5rv/image/upload/v1755751904/SkillWell_Logo_alma5m.png">
 
   <style>
-:root {
-  --primary: #0b0d50;
-  --primary-dark: #0b0d50;
-  --accent: #fbbf24;
-  --bg: #fafdff;
-  --card: white;
-  --ink: #222;
-  --muted: #dde2ea;
-  --border: #e5e7eb;
-  --radius: 14px;
-  --shadow: 0 2px 16px rgba(60, 80, 120, 0.08);
-  --pill-bg: #e0e7ff;
-  --pill-color: #3730a3;
-}
+    :root {
+      --primary: #0b0d50;
+      --primary-dark: #020617;
+      --accent: #fbbf24;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --ink: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --radius: 16px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
+      --shadow-card: 0 10px 28px rgba(15, 23, 42, 0.08);
+      --pill-bg: #e0e7ff;
+      --pill-color: #1e3a8a;
+    }
 
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-  margin: 0;
-  font-size: 17px;
-  line-height: 1.7;
-}
+    * { box-sizing: border-box; }
 
-.wrap {
-  margin: 36px 0 0;
-}
+    body {
+      background: radial-gradient(circle at top, #e0ebff 0, #f5f7fb 45%, #ffffff 100%);
+      color: var(--ink);
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.7;
+    }
 
-.about {
-  display: flex;
-  gap: 48px;
-  background: var(--card);
-  box-shadow: var(--shadow);
-  padding: 40px 32px;
-  flex-wrap: wrap;
-}
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
 
-.about > div {
-  flex: 2;
-  min-width: 320px;
-}
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-.rightstack {
-  flex: 1.2;
-  min-width: 320px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
+    /* ===== HEADER (aligned with home) ===== */
+    .site-header {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
 
-.badge {
-  display: inline-block;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 600;
-  border-radius: 999px;
-  padding: 6px 18px;
-  font-size: 15px;
-  margin-bottom: 18px;
-  letter-spacing: 0.02em;
-}
+    .site-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 60px;
+    }
 
-.title {
-  font-size: 2.2rem;
-  font-weight: 800;
-  margin: 0 0 18px;
-  color: var(--primary-dark);
-  line-height: 1.2;
-}
+    .logo img {
+      max-width: 190px;
+      padding: 8px 0;
+      transition: transform 0.18s ease;
+    }
 
-.lead {
-  font-size: 1.15rem;
-  color: #27282b;
-  margin-bottom: 22px;
-}
+    .logo img:hover {
+      transform: translateY(-1px) scale(1.02);
+    }
 
-.pillrow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 18px;
-}
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 26px;
+      cursor: pointer;
+      color: var(--primary);
+    }
 
-.pill {
-  background: var(--pill-bg);
-  color: var(--pill-color);
-  border-radius: 999px;
-  padding: 7px 18px;
-  font-size: 15px;
-  font-weight: 500;
-  box-shadow: 0 1px 6px rgba(60,80,120,0.07);
-}
+    .main-nav {
+      display: flex;
+      align-items: center;
+    }
 
-.cta {
-  display: flex;
-  gap: 14px;
-  margin: 18px 0 0;
-}
+    .main-nav ul {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
 
-.btn {
-  display: inline-block;
-  font-weight: 600;
-  border-radius: var(--radius);
-  padding: 11px 28px;
-  text-decoration: none;
-  font-size: 16px;
-  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
-  box-shadow: 0 1px 6px rgba(60,80,120,0.07);
-  border: none;
-  cursor: pointer;
-}
+    .main-nav a {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      transition: background 0.18s, color 0.18s;
+    }
 
-.btn.primary {
-  background: var(--primary);
-  color: #fff;
-}
-.btn.primary:hover {
-  background: var(--primary-dark);
-}
+    .main-nav a:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
 
-.btn.ghost {
-  background: #fff;
-  color: var(--primary-dark);
-  border: 1.5px solid var(--primary);
-}
-.btn.ghost:hover {
-  background: var(--primary);
-  color: #fff;
-}
+    @media (max-width: 900px) {
+      .nav-toggle { display: block; }
 
-.mini {
-  font-size: 14px;
-  color: #040609;
-  margin-top: 8px;
-}
+      .main-nav {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        box-shadow: var(--shadow-card);
+        border-bottom: 1px solid var(--border);
+      }
 
-.hr {
-  border-top: 1.5px solid var(--border);
-  margin: 28px 0 18px;
-}
+      .main-nav.show { display: block; }
 
-.partners {
-  margin: 0 0 18px;
-  overflow: hidden;
-}
-.rail {
-  display: flex;
-  gap: 32px;
-  animation: scrollRail 18s linear infinite;
-  align-items: center;
-}
-.rail img {
-  height: 38px;
-  filter: grayscale(0.2) brightness(0.95);
-  opacity: 0.85;
-  transition: filter 0.2s;
-}
-.rail img:hover {
-  filter: none;
-  opacity: 1;
-}
-@keyframes scrollRail {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+      .main-nav ul {
+        flex-direction: column;
+        gap: 0;
+      }
 
-.statgrid {
-  display: flex;
-  gap: 18px;
-  margin-bottom: 12px;
-}
-.stat {
-  background: #7c7d82;
-  color: var(--pill-color);
-  border-radius: var(--radius);
-  padding: 18px 22px;
-  text-align: center;
-  flex: 1;
-  box-shadow: 0 1px 6px rgba(60,80,120,0.07);
-}
-.stat .n {
-  font-size: 2.1rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-  color: var(--primary-dark);
-}
-.stat .k {
-  font-size: 15px;
-  color: var(--muted);
-}
+      .main-nav li { border-bottom: 1px solid var(--border); }
+      .main-nav li:last-child { border-bottom: none; }
 
-.values {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-.v {
-  background: var(--bg);
-  border-radius: var(--radius);
-  padding: 16px 18px;
-  box-shadow: 0 1px 6px rgba(60,80,120,0.04);
-}
-.v h4 {
-  margin: 0 0 6px;
-  color: var(--primary-dark);
-  font-size: 1.08rem;
-}
-.v p {
-  margin: 0;
-  color: #27282b;
-  font-size: 15px;
-}
+      .main-nav a {
+        display: block;
+        padding: 10px 18px;
+      }
+    }
 
-.twrap {
-  margin: 18px 0 0;
-}
-.t {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: 0 1px 6px rgba(60,80,120,0.07);
-  padding: 16px 18px;
-}
-.avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  margin-right: 8px;
-  flex-shrink: 0;
-}
+    /* ===== LAYOUT ===== */
+    main.wrap {
+      margin: 32px 0 0;
+    }
 
-.card {
-  background: var(--card);
-  box-shadow: var(--shadow);
-  padding: 24px 22px;
-  margin-bottom: 24px;
-}
+    .about {
+      display: flex;
+      gap: 36px;
+      background: var(--card);
+      box-shadow: var(--shadow-soft);
+      padding: 32px 28px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
 
-details {
-  margin-bottom: 10px;
-}
-summary {
-  font-weight: 600;
-  color: var(--primary-dark);
-  cursor: pointer;
-  font-size: 16px;
-}
-details[open] summary {
-  color: var(--accent);
-}
+    .about > div {
+      flex: 2;
+      min-width: 320px;
+    }
 
-footer {
-  margin-top: 32px;
-  color: var(--muted);
-  font-size: 14px;
-}
+    .rightstack {
+      flex: 1.2;
+      min-width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .about { flex-direction: column; gap: 32px; padding: 28px 16px; }
-  .wrap { padding: 0 12px; }
-}
-@media (max-width: 600px) {
-  .about, .card { padding: 16px; }
-  .statgrid { flex-direction: column; gap: 10px; }
-  .pillrow { gap: 6px; }
-  .title { font-size: 1.6rem; }
-}
-@media (max-width: 480px) {
-  .title { font-size: 1.4rem; line-height: 1.3; }
-  .lead { font-size: 1rem; }
-  .pill { font-size: 13px; padding: 5px 12px; }
-  .btn { width: 100%; text-align: center; }
-  .cta { flex-direction: column; gap: 10px; }
-  .site-header .container { flex-direction: column; align-items: flex-start; }
-  .main-nav ul { padding: 10px; flex-direction: column; gap: 8px; }
-  .logo img { max-width: 160px; }
-}
+    /* ===== LEFT COLUMN ===== */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fef3c7;
+      color: #92400e;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 13px;
+      margin-bottom: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
 
-.site-header {
-  background: var(--card);
-  margin-bottom: 32px;
-  position: static;
-  top: 0;
-  z-index: 20;
-  border-bottom: 1px solid var(--border);
-}
+    .badge-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.25);
+    }
 
-.site-header .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 50px; /* MODIFIED: Reduced height */
+    .title {
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin: 0 0 14px;
+      color: var(--primary);
+      line-height: 1.25;
+    }
 
-  margin: 0 auto;
-  padding: 0 18px;
-}
+    .title span {
+      color: var(--primary-dark);
+    }
 
- .logo img {
-    padding: 10px;
-    max-width: 180px;
-    width: 100%;    /* responsive width */
-    height: 80%;     /* auto height */
-    transition: transform 0.2s;
-}
-.logo img:hover {
-  transform: scale(1.07) rotate(-3deg);
-}
+    .lead {
+      font-size: 1.03rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+      max-width: 640px;
+    }
 
-.main-nav ul {
-  display: flex;
-  gap: 24px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+    .pillrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
 
-.main-nav a {
-  color: var(--primary-dark);
-  text-decoration: none;
-  font-weight: 620;
-  font-size: 19px;
-  padding: 8px 18px;
-  border-radius: var(--radius);
-  transition: background 0.18s, color 0.18s;
-}
-.main-nav a:hover {
-  background: var(--primary);
-  color: #fff;
-}
-.nav-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: var(--primary-dark);
-}
+    .pill {
+      background: var(--pill-bg);
+      color: var(--pill-color);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 1px 6px rgba(148, 163, 184, 0.35);
+    }
 
-@media (max-width: 900px) {
-  .nav-toggle {
-    display: block; /* show hamburger */
-  }
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0 0;
+    }
 
-  .main-nav {
-    display: none;
-    width: 100%;
-    background: var(--card);
-    position: absolute;
-    top: 60px;
-    left: 0;
-    padding: 12px 0;
-    box-shadow: var(--shadow);
-  }
+    .btn {
+      display: inline-block;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 10px 22px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.08s;
+      border: none;
+      cursor: pointer;
+    }
 
-  .main-nav ul {
-    flex-direction: column;
-    gap: 0;
-  }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.35);
+    }
 
-  .main-nav li {
-    border-bottom: 1px solid var(--border);
-  }
-  .main-nav li:last-child {
-    border-bottom: none;
-  }
+    .btn.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.45);
+    }
 
-  .main-nav a {
-    display: block;
-    padding: 12px 18px;
-    text-align: left;
-  }
+    .btn.ghost {
+      background: #ffffff;
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
 
-  .main-nav.show {
-    display: block;
-  }
-}
-@media (max-width: 900px),
-(max-width: 700px),
-(max-width: 600px),
-(max-width: 480px) {
-  /* Override responsive changes to keep desktop style */
-  
-  .about {
-    flex-direction: row !important;
-    gap: 48px !important;
-    padding: 40px 32px !important;
-  }
+    .btn.ghost:hover {
+      background: #f3f4f6;
+      box-shadow: 0 8px 20px rgba(148, 163, 184, 0.3);
+    }
 
-  .wrap { padding: 0 !important; }
+    .mini-heading {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 18px 0 8px;
+    }
 
-  .statgrid { flex-direction: row !important; gap: 18px !important; }
+    .partners {
+      margin: 0 0 10px;
+      overflow: hidden;
+    }
 
-  .pillrow { gap: 10px !important; }
+    .rail {
+      display: flex;
+      gap: 24px;
+      animation: scrollRail 20s linear infinite;
+      align-items: center;
+    }
 
-  .title { font-size: 2.2rem !important; }
+    .rail img {
+      height: 38px;
+      filter: grayscale(0.3) contrast(1.05);
+      opacity: 0.9;
+      transition: filter 0.2s, opacity 0.2s, transform 0.2s;
+    }
 
-  .lead { font-size: 1.15rem !important; }
+    .rail img:hover {
+      filter: none;
+      opacity: 1;
+      transform: translateY(-1px);
+    }
 
-  .pill { font-size: 15px !important; padding: 7px 18px !important; }
+    @keyframes scrollRail {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
 
-  .btn { width: auto !important; text-align: left !important; }
+    /* ===== RIGHT COLUMN ===== */
+    .statgrid {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
 
-  .cta { flex-direction: row !important; gap: 14px !important; }
+    .stat {
+      background: #f9fafb;
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      text-align: left;
+      flex: 1;
+      box-shadow: 0 1px 6px rgba(148, 163, 184, 0.4);
+      border: 1px solid var(--border);
+    }
 
-  .site-header .container {
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    min-height: 60px !important;
-    gap: 0 !important;
-  }
+    .stat .n {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--primary);
+    }
 
-  .main-nav ul { padding: 10px; flex-direction: row !important; justify-content: space-between !important; }
+    .stat .k {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
 
-  .logo img { max-width: 180px !important; }
-}
+    .values {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
+    .v {
+      background: #ffffff;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: 0 1px 6px rgba(148, 163, 184, 0.2);
+      border: 1px solid #e5e7eb;
+    }
+
+    .v h4 {
+      margin: 0 0 4px;
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .v p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .twrap {
+      margin-top: 4px;
+    }
+
+    .t {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      flex-shrink: 0;
+    }
+
+    .t strong {
+      font-size: 0.96rem;
+    }
+
+    .t .meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .t p {
+      margin: 4px 0 0;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    /* ===== FAQ CARD ===== */
+    .card {
+      background: var(--card);
+      box-shadow: var(--shadow-card);
+      padding: 20px 20px 18px;
+      margin: 26px 0 0;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.3rem;
+      color: var(--primary);
+    }
+
+    details {
+      margin-bottom: 8px;
+    }
+
+    summary {
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    details[open] summary {
+      color: var(--accent);
+    }
+
+    details p {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-align: center;
+      padding: 14px 0 18px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      main.wrap { margin-top: 24px; }
+      .about { padding: 24px 18px; gap: 24px; }
+    }
+
+    @media (max-width: 640px) {
+      .about { flex-direction: column; }
+      .statgrid { flex-direction: column; }
+      .cta { flex-direction: column; }
+      .btn { width: 100%; text-align: center; }
+      .title { font-size: 1.6rem; }
+    }
   </style>
 </head>
 <body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container site-header-inner">
+      <a href="./index.html" class="logo">
+        <img src="https://res.cloudinary.com/dzeekmcvf/image/upload/v1755840542/SkillWell_Logo_alma5m_d9seff.png" alt="SkillWell Logo">
+      </a>
+      <button class="nav-toggle" aria-label="Toggle Menu">☰</button>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./login.html">Mentor Login</a></li>
+          <li><a href="./login.html">Student Login</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<header class="site-header">
-  <div class="container">
-    <a href="/" class="logo">
-      <img src="https://res.cloudinary.com/dzeekmcvf/image/upload/v1755840542/SkillWell_Logo_alma5m_d9seff.png" alt="Skillwell Logo">
-    </a>
-    <button class="nav-toggle" aria-label="Toggle Menu">
-      ☰
-    </button>
-
-    <nav class="main-nav">
-      <ul>
-        <li><a href="./index.html">Home</a></li>
-        <li><a href="login.html">Mentor Login</a></li>
-        <li><a href="login.html">Student Login</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
+  <!-- MAIN CONTENT -->
   <main class="wrap">
-    <section class="about" aria-labelledby="about-title">
+    <section class="container about" aria-labelledby="about-title">
       <div>
         <span class="badge" aria-label="Mission">
-          <span>Mission-First</span> • <span>Affordable & Job-Focused</span>
+          <span class="badge-dot"></span>
+          <span>Mission-first • Outcome-driven</span>
         </span>
+
         <h1 id="about-title" class="title">
-          Learn without breaking the bank.<br/>Get placed without breaking a sweat.
+          SkillWell helps students <span>learn confidently</span><br>and HR teams hire with evidence.
         </h1>
+
         <p class="lead">
-          At <strong>SkillWell</strong>, we keep it simple: <em>low-cost, high-impact</em> courses that teach what companies actually hire for.
-          Taught by seasoned pros. Backed by real placement support. You learn. We open doors. You get hired.
+          SkillWell was created to close the gap between what students learn and what hiring managers expect.
+          Programs are intentionally priced low, built with industry input, and supported by mentors and a placement team focused on real outcomes.
         </p>
 
         <div class="pillrow" role="list" aria-label="Highlights">
           <span class="pill" role="listitem">₹999 starter tracks</span>
-          <span class="pill" role="listitem">Live & self-paced</span>
-          <span class="pill" role="listitem">Mock interviews</span>
-          <span class="pill" role="listitem">Resume & ATS prep</span>
-          <span class="pill" role="listitem">Mentor hours</span>
-          <span class="pill" role="listitem">Offer guarantee*</span>
+          <span class="pill" role="listitem">Live & self‑paced modules</span>
+          <span class="pill" role="listitem">Portfolio‑ready projects</span>
+          <span class="pill" role="listitem">Mock interviews & feedback</span>
+          <span class="pill" role="listitem">ATS‑aligned resume support</span>
         </div>
 
         <div class="cta">
-          <a class="btn primary" href="./index.html" aria-label="Browse courses">Browse Courses</a>
-          <a class="btn ghost" href="#placements" aria-label="View placement support details">See Placement Playbook</a>
+          <a class="btn primary" href="./index.html">Explore course catalog</a>
+          <a class="btn ghost" href="#placements">View placement support</a>
         </div>
 
-        <p class="mini"> <h3> OUR STUDENTS ARE FROM </h3></p>
-
-        <!-- <div class="hr" role="separator" aria-hidden="true"></div> -->
-
-        <div class="partners" aria-label="Hiring partners">
+        <div class="mini-heading">Students already trust SkillWell from</div>
+        <div class="partners" aria-label="Partner colleges">
           <div class="rail" aria-hidden="true">
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755840488/gcoe_logo_gvulbh.png " alt="Partner A"/>
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/sasurie_clg_logo_tmtdap.png " alt="Partner B"/>
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/bharathidhasan_clg_logo_drj4oy.jpg " alt="Partner C"/>
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/Vels_Clg_ekjzb5.jpg " alt="Partner D"/>
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/Kasi_clg_logo_zdh446.png " alt="Partner E"/>
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/psv_clg_y49hsb.png " alt="Partner F"/>
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755840488/gcoe_logo_gvulbh.png" alt="Partner A (duplicate)"/>
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/sasurie_clg_logo_tmtdap.png" alt="Partner B (duplicate)"/>
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/bharathidhasan_clg_logo_drj4oy.jpg" alt="Partner C (duplicate)"/>
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/Vels_Clg_ekjzb5.jpg" alt="Partner D (duplicate)"/>
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/Kasi_clg_logo_zdh446.png" alt="Partner E (duplicate)"/>
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/psv_clg_y49hsb.png" alt="Partner F (duplicate)"/>
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755840488/gcoe_logo_gvulbh.png" alt="GCOE" />
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/sasurie_clg_logo_tmtdap.png" alt="Sasurie College" />
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/bharathidhasan_clg_logo_drj4oy.jpg" alt="Bharathidasan" />
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/Vels_Clg_ekjzb5.jpg" alt="Vels" />
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/Kasi_clg_logo_zdh446.png" alt="Kasi" />
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/psv_clg_y49hsb.png" alt="PSV" />
+            <!-- duplicate for smooth loop -->
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755840488/gcoe_logo_gvulbh.png" alt="" />
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/sasurie_clg_logo_tmtdap.png" alt="" />
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/bharathidhasan_clg_logo_drj4oy.jpg" alt="" />
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/Vels_Clg_ekjzb5.jpg" alt="" />
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/Kasi_clg_logo_zdh446.png" alt="" />
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/psv_clg_y49hsb.png" alt="" />
           </div>
         </div>
       </div>
 
       <div class="rightstack">
         <div class="statgrid" role="list" aria-label="Impact stats">
-          <div class="stat" role="listitem" aria-label="Placement rate">
-            <div class="n" data-count="82%">82%</div>
-            <div class="k">Success rate with our mentoring</div>
+          <div class="stat" role="listitem">
+            <div class="n" data-count="82">82%</div>
+            <div class="k">learners reporting improved interview readiness</div>
           </div>
-          <div class="stat" role="listitem" aria-label="Average time to offer">
-            <div class="n" data-count="400+">400+ </div>
-            <div class="k">No. of course completed Students</div>
+          <div class="stat" role="listitem">
+            <div class="n" data-count="400">400+</div>
+            <div class="k">course completions across tracks</div>
           </div>
-          <div class="stat" role="listitem" aria-label="Average package LPA">
+          <div class="stat" role="listitem">
             <div class="n" data-count="7.2">7.2 LPA</div>
-            <div class="k">Highest package </div>
+            <div class="k">highest package secured by learners</div>
           </div>
         </div>
 
         <div class="values" id="placements">
-          <article class="v" aria-labelledby="v1">
-            <h4 id="v1">Placement Playbook</h4>
-            <p>Career sprints, DSA drills, projects, mock tech rounds, and referrals. You’ll know exactly what to do each week until you sign the offer.</p>
+          <article class="v">
+            <h4>Clear placement roadmap</h4>
+            <p>
+              From fundamentals to mock interviews, each learner follows a weekly plan:
+              structured content, tracked assignments, and guided preparation until they are ready for real panels.
+            </p>
           </article>
-          <article class="v" aria-labelledby="v2">
-            <h4 id="v2">Real-World Projects</h4>
-            <p>Ship portfolio-worthy builds reviewed by mentors. Less theory, more delivery—so hiring managers see outcomes, not just certificates.</p>
+          <article class="v">
+            <h4>Real‑world, review‑based projects</h4>
+            <p>
+              Students build deployable work reviewed by mentors, giving HR teams concrete proof of skills instead of just completion certificates.
+            </p>
           </article>
-          <article class="v" aria-labelledby="v3">
-            <h4 id="v3">Transparent Pricing</h4>
-            <p>Low fees, clear refunds, and EMI options. No hidden “gotchas.” Education should be an escalator, not a paywall.</p>
+          <article class="v">
+            <h4>Transparent, accessible pricing</h4>
+            <p>
+              Programs are priced to be accessible for first‑generation learners, with clarity on fees, timelines, and support—no hidden fine‑print.
+            </p>
           </article>
         </div>
 
         <div class="twrap">
-          <div class="t" aria-label="Alumni testimonial">
+          <div class="t">
             <div class="avatar" aria-hidden="true"></div>
             <div>
-              <strong>Riya S.</strong> • Software Engineer, Acme Tech
-              <div class="meta">Full-Stack Track → Offer in 39 days</div>
-              <p style="margin:6px 0 0;color:var(--ink);line-height:1.6;">
-                “No fluff. Projects were legit, mentors kept it real, and the placement team pushed me past interview anxiety. Worth every rupee.”
+              <strong>Riya S.</strong> · Software Engineer
+              <div class="meta">Full‑Stack track · Offer in 39 days</div>
+              <p>
+                “The focus stayed on outcomes: projects, interview simulations, and feedback.  
+                By the time HR called, I had stories and skills, not just slides.”
               </p>
             </div>
           </div>
         </div>
 
-        <div class="cta">
-          <a class="btn primary" href="#apply" aria-label="Apply now">Apply Now</a>
-          <!-- <a class="btn ghost" href="#refund-policy" aria-label="Read refund policy">Read Refund Policy</a> -->
+        <div class="cta" style="margin-top:10px;">
+          <a class="btn primary" href="./login.html">Login to SkillWell</a>
+          <a class="btn ghost" href="./index.html">View all programs</a>
         </div>
       </div>
     </section>
 
-    <section class="card" style="margin-top:28px" aria-labelledby="faq">
-      <h2 id="faq" style="margin:0 0 8px">FAQs (Quick Hits)</h2>
+    <section class="container card" aria-labelledby="faq">
+      <h2 id="faq">FAQs</h2>
       <details>
-        <summary>How does placement work?</summary>
-        <p class="mini">Finish core track + projects → career sprint → mock rounds → referrals & interviews. We stick with you through offer negotiation.</p>
+        <summary>How does SkillWell support placements?</summary>
+        <p>
+          Learners follow a guided path: core track completion, projects, career sprints, mock interviews, and referrals
+          where available. Support continues through shortlisting and offer discussions.
+        </p>
       </details>
       <details>
-        <summary>Is there a refund if I’m not placed?</summary>
-        <p class="mini">Yes—subject to <a href="#refund-policy">eligibility</a> (attendance, project completion, interview attempts). Transparent, documented, and on time.</p>
+        <summary>Are the courses suitable for freshers?</summary>
+        <p>
+          Yes. Tracks are designed for college students and early‑career professionals, with foundations plus applied work
+          so HR teams can see progression over time.
+        </p>
       </details>
       <details>
-        <summary>Are courses really low cost?</summary>
-        <p class="mini">Yes. Intro tracks start at ₹999. Scholarships and EMI options available for advanced programs.</p>
+        <summary>Can colleges or HR teams partner with SkillWell?</summary>
+        <p>
+          Yes. Institutions and organisations can onboard batches, access progress dashboards, and request custom reports
+          for assessments and hiring pipelines.
+        </p>
       </details>
     </section>
 
-    <footer class="mini" style="text-align:center;padding:18px 0 6px">
-      © 2024 SkillWell • Learn. Grow. Get Hired.
+    <footer>
+      © 2025 SkillWell · Learning and placement guidance for students and hiring partners.
     </footer>
   </main>
 
   <script>
-    // (Optional) Year + fun count-up effect for stats
-    document.getElementById('yr').textContent = new Date().getFullYear();
+    const toggle = document.querySelector(".nav-toggle");
+    const nav = document.querySelector(".main-nav");
+    toggle.addEventListener("click", () => {
+      nav.classList.toggle("show");
+      toggle.textContent = nav.classList.contains("show") ? "✖" : "☰";
+    });
+
+    // simple count-up for stats
     const easeOut = t => 1 - Math.pow(1 - t, 3);
-    const dur = 1000;
-    document.querySelectorAll('.n[data-count]').forEach(el=>{
-      const target = parseFloat(el.dataset.count);
-      const isLPA = el.textContent.includes('LPA');
-      const start = 0;
+    document.querySelectorAll(".stat .n").forEach(el => {
+      const raw = el.textContent.trim();
+      const isLPA = raw.includes("LPA");
+      const numeric = parseFloat(raw);
+      const suffix = raw.replace(/[0-9.]/g, "").trim();
       const startTime = performance.now();
-      function tick(now){
-        const p = Math.min((now - startTime)/dur, 1);
-        const v = start + (target - start) * easeOut(p);
-        el.textContent = isLPA ? (v.toFixed(1)+' LPA') : (el.dataset.count.endsWith('%') ? v.toFixed(0)+'%' : Math.round(v));
-        if(p<1) requestAnimationFrame(tick);
+      const duration = 1100;
+
+      function tick(now) {
+        const p = Math.min((now - startTime) / duration, 1);
+        const value = numeric * easeOut(p);
+        el.textContent = isLPA ? value.toFixed(1) + " LPA" : suffix ? Math.round(value) + suffix : Math.round(value);
+        if (p < 1) requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
     });
   </script>
-  <script>
-  const toggle = document.querySelector(".nav-toggle");
-  const nav = document.querySelector(".main-nav");
-
-  toggle.addEventListener("click", () => {
-    nav.classList.toggle("show");
-
-    // Change icon ☰ ↔ ✖
-    if (nav.classList.contains("show")) {
-      toggle.textContent = "✖";
-    } else {
-      toggle.textContent = "☰";
-    }
-  });
-</script>
-
 </body>
-
 </html>
-
-
