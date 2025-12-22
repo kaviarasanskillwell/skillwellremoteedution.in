@@ -169,24 +169,18 @@
 
   <div id="fullscreenLoader" class="fullscreen-loader">
     <div class="loader-ring"></div>
-    <div class="loader-text">Checking credentials...</div>
+    <div class="loader-text">Logging you in...</div>
   </div>
 
-  <!-- ✅ YOUR USERS LIST - ADD STUDENTS HERE -->
-  <script>
-    // ADD YOUR STUDENTS HERE (Copy paste lines below)
-    const USERS = [
-      { email: "kaviarasan0608@gmail.com", password: "123456" },
-      { email: "student2@skillwell.com", password: "123456", secret: "student2-secret-xyz" },
-      { email: "student3@skillwell.com", password: "123456", secret: "student3-secret-xyz" },
-      { email: "admin@skillwell.com", password: "admin123", secret: "admin-secret-xyz" },
-      { email: "demo@skillwell.com", password: "demo123", secret: "demo-secret-xyz" }
-      // ADD MORE STUDENTS: { email: "student10@skillwell.com", password: "123456", secret: "s10-xyz" },
-    ];
-  </script>
+  <!-- Supabase email/password login -->
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-  <!-- ✅ LOGIN SCRIPT - WORKS OFFLINE -->
-  <script>
+    const SUPABASE_URL = 'https://cssqsehzvsyxrpnbltbt.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_g4htR-Z30Ln-n1GAuZtcng_nott3zwJ';
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
     const loginForm = document.getElementById("loginForm");
     const loginBtn = document.getElementById("loginBtn");
     const toast = document.getElementById("toast");
@@ -198,42 +192,49 @@
       setTimeout(() => toast.classList.remove("show"), 3000);
     }
 
-    loginForm.addEventListener("submit", function(e) {
+    function restoreUI() {
+      loginBtn.disabled = false;
+      fullscreenLoader.classList.remove("active");
+      fullscreenLoader.querySelector('.loader-text').textContent = "Logging you in...";
+    }
+
+    loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      
+
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
 
       loginBtn.disabled = true;
       fullscreenLoader.classList.add("active");
-      fullscreenLoader.querySelector('.loader-text').textContent = "Checking...";
-
-      // ✅ CHECK USER FROM LOCAL LIST
-      const user = USERS.find(u => u.email === email && u.password === password);
-      
-      setTimeout(() => {
-        if (user) {
-          // ✅ SUCCESS - SAVE SECRET
-          localStorage.setItem("secret", user.secret);
-          showToast("✅ Login Successful! Redirecting...", true);
-          fullscreenLoader.querySelector('.loader-text').textContent = "Login OK!";
-          
-          setTimeout(() => { 
-            window.location.href = "./course.html"; 
-          }, 1500);
-        } else {
-          showToast("❌ Wrong email or password!");
-          restoreUI();
-        }
-      }, 1000); // Fake delay for nice UX
-    });
-
-    function restoreUI() {
-      loginBtn.disabled = false;
-      fullscreenLoader.classList.remove("active");
       fullscreenLoader.querySelector('.loader-text').textContent = "Checking credentials...";
-    }
+
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) {
+          console.error(error);
+          showToast("❌ Invalid email or password!");
+          restoreUI();
+          return;
+        }
+
+        // store access token locally
+        localStorage.setItem("supabaseToken", data.session.access_token);
+        showToast("✅ Login Successful! Redirecting...", true);
+        fullscreenLoader.querySelector('.loader-text').textContent = "Login successful!";
+
+        setTimeout(() => {
+          window.location.href = "./course.html";
+        }, 1500);
+      } catch (err) {
+        console.error(err);
+        showToast("⚠️ Network or server error.");
+        restoreUI();
+      }
+    });
   </script>
 </body>
 </html>
-
