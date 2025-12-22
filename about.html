@@ -6,14 +6,17 @@
   <title>About — SkillWell</title>
   <meta name="description" content="SkillWell offers affordable, industry-aligned learning paths with real placement support for students and hiring teams."/>
   <link rel="icon" href="https://res.cloudinary.com/da72eh5rv/image/upload/v1755751904/SkillWell_Logo_alma5m.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --primary: #0b0d50;
-      --primary-dark: #020617;
-      --accent: #fbbf24;
-      --bg: #f5f7fb;
-      --card: #ffffff;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --accent: #22c55e;
+      --bg: #f3f4f6;
+      --panel: #ffffff;
       --ink: #111827;
       --muted: #6b7280;
       --border: #e5e7eb;
@@ -27,16 +30,16 @@
     * { box-sizing: border-box; }
 
     body {
-      background: radial-gradient(circle at top, #e0ebff 0, #f5f7fb 45%, #ffffff 100%);
+      margin: 0;
+      background: radial-gradient(circle at top, #e0ecff 0, #f3f4f6 45%, #f9fafb 100%);
       color: var(--ink);
       font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
-      margin: 0;
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.7;
     }
 
     a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; height: auto; }
+    img { max-width: 100%; display: block; height: auto; }
 
     .container {
       max-width: 1100px;
@@ -44,7 +47,7 @@
       padding: 0 20px;
     }
 
-    /* ===== HEADER (aligned with home) ===== */
+    /* ===== HEADER (copied to match home) ===== */
     .site-header {
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(10px);
@@ -58,12 +61,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 60px;
+      padding: 10px 0;
     }
 
     .logo img {
-      max-width: 190px;
-      padding: 8px 0;
+      width: 190px;
+      height: 70px;
+      object-fit: contain;
       transition: transform 0.18s ease;
     }
 
@@ -77,34 +81,85 @@
       border: none;
       font-size: 26px;
       cursor: pointer;
-      color: var(--primary);
+      color: var(--ink);
     }
 
     .main-nav {
       display: flex;
       align-items: center;
+      gap: 16px;
     }
 
     .main-nav ul {
       display: flex;
-      gap: 18px;
+      gap: 12px;
       list-style: none;
       margin: 0;
       padding: 0;
     }
 
     .main-nav a {
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 15px;
-      padding: 6px 14px;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 8px 16px;
       border-radius: 999px;
+      color: var(--muted);
       transition: background 0.18s, color 0.18s;
     }
 
     .main-nav a:hover {
-      background: var(--primary);
+      background: #eff6ff;
+      color: var(--primary);
+    }
+
+    .nav-cta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-outline {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      font-size: 13px;
+      background: #ffffff;
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.08s;
+    }
+
+    .btn-outline:hover {
+      background: #f9fafb;
+      box-shadow: 0 8px 18px rgba(148, 163, 184, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
       color: #ffffff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      cursor: pointer;
+      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.55);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.12s, box-shadow 0.18s;
+    }
+
+    .btn-primary span.icon { font-size: 16px; }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 50px rgba(37, 99, 235, 0.65);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0) scale(0.98);
     }
 
     @media (max-width: 900px) {
@@ -113,107 +168,88 @@
       .main-nav {
         display: none;
         position: absolute;
-        top: 60px;
+        top: 64px;
         left: 0;
         width: 100%;
         background: #ffffff;
-        box-shadow: var(--shadow-card);
         border-bottom: 1px solid var(--border);
-      }
-
-      .main-nav.show { display: block; }
-
-      .main-nav ul {
+        box-shadow: var(--shadow-card);
+        padding: 10px 0 14px;
         flex-direction: column;
-        gap: 0;
+        align-items: center;
+        gap: 10px;
       }
 
-      .main-nav li { border-bottom: 1px solid var(--border); }
-      .main-nav li:last-child { border-bottom: none; }
-
-      .main-nav a {
-        display: block;
-        padding: 10px 18px;
-      }
+      .main-nav.show { display: flex; }
+      .main-nav ul { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      .nav-cta { flex-direction: row; justify-content: center; }
     }
 
-    /* ===== LAYOUT ===== */
+    /* ===== ABOUT LAYOUT (aligned with home theme) ===== */
     main.wrap {
       margin: 32px 0 0;
     }
 
     .about {
-      display: flex;
-      gap: 36px;
-      background: var(--card);
-      box-shadow: var(--shadow-soft);
-      padding: 32px 28px;
+      background: var(--panel);
       border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
       border: 1px solid var(--border);
-      flex-wrap: wrap;
+      padding: 30px 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr);
+      gap: 32px;
+      align-items: flex-start;
     }
 
-    .about > div {
-      flex: 2;
-      min-width: 320px;
-    }
+    .left-col { min-width: 0; }
+    .right-col { min-width: 0; }
 
-    .rightstack {
-      flex: 1.2;
-      min-width: 320px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
-
-    /* ===== LEFT COLUMN ===== */
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: #fef3c7;
-      color: #92400e;
+      background: #ecfccb;
+      color: #166534;
       font-weight: 600;
       border-radius: 999px;
-      padding: 6px 16px;
-      font-size: 13px;
-      margin-bottom: 14px;
-      letter-spacing: 0.04em;
+      padding: 6px 14px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      margin-bottom: 10px;
     }
 
     .badge-dot {
-      width: 10px;
-      height: 10px;
+      width: 9px;
+      height: 9px;
       border-radius: 999px;
       background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.25);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
     }
 
     .title {
-      font-size: 2.1rem;
+      font-size: 26px;
       font-weight: 700;
-      margin: 0 0 14px;
-      color: var(--primary);
-      line-height: 1.25;
+      margin: 0 0 10px;
+      color: var(--ink);
+      line-height: 1.3;
     }
 
-    .title span {
-      color: var(--primary-dark);
-    }
+    .title span { color: var(--primary); }
 
     .lead {
-      font-size: 1.03rem;
+      font-size: 14px;
       color: var(--muted);
-      margin-bottom: 18px;
-      max-width: 640px;
+      margin-bottom: 16px;
+      max-width: 620px;
     }
 
     .pillrow {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .pill {
@@ -221,63 +257,47 @@
       color: var(--pill-color);
       border-radius: 999px;
       padding: 6px 14px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
-      box-shadow: 0 1px 6px rgba(148, 163, 184, 0.35);
+      box-shadow: 0 1px 6px rgba(148, 163, 184, 0.3);
     }
 
     .cta {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin: 12px 0 0;
+      margin-top: 8px;
     }
 
-    .btn {
+    .btn-secondary {
       display: inline-block;
       font-weight: 600;
       border-radius: 999px;
-      padding: 10px 22px;
-      text-decoration: none;
-      font-size: 14px;
-      transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.08s;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn.primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #ffffff;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.35);
-    }
-
-    .btn.primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.45);
-    }
-
-    .btn.ghost {
+      padding: 9px 20px;
+      font-size: 13px;
+      border: 1px solid var(--border);
       background: #ffffff;
       color: var(--primary);
-      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.08s;
     }
 
-    .btn.ghost:hover {
+    .btn-secondary:hover {
       background: #f3f4f6;
-      box-shadow: 0 8px 20px rgba(148, 163, 184, 0.3);
+      box-shadow: 0 8px 20px rgba(148, 163, 184, 0.28);
+      transform: translateY(-1px);
     }
 
     .mini-heading {
-      font-size: 0.82rem;
+      font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
-      margin: 18px 0 8px;
+      margin: 18px 0 6px;
     }
 
     .partners {
-      margin: 0 0 10px;
       overflow: hidden;
     }
 
@@ -289,7 +309,7 @@
     }
 
     .rail img {
-      height: 38px;
+      height: 34px;
       filter: grayscale(0.3) contrast(1.05);
       opacity: 0.9;
       transition: filter 0.2s, opacity 0.2s, transform 0.2s;
@@ -306,156 +326,136 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* ===== RIGHT COLUMN ===== */
+    /* RIGHT COLUMN */
     .statgrid {
       display: flex;
-      gap: 14px;
+      gap: 12px;
       margin-bottom: 8px;
     }
 
     .stat {
       background: #f9fafb;
-      border-radius: var(--radius);
-      padding: 16px 18px;
-      text-align: left;
+      border-radius: 14px;
+      padding: 14px 14px;
       flex: 1;
-      box-shadow: 0 1px 6px rgba(148, 163, 184, 0.4);
       border: 1px solid var(--border);
+      box-shadow: 0 1px 6px rgba(148, 163, 184, 0.25);
     }
 
     .stat .n {
-      font-size: 1.6rem;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 4px;
       color: var(--primary);
+      margin-bottom: 4px;
     }
 
     .stat .k {
-      font-size: 0.82rem;
+      font-size: 11px;
       color: var(--muted);
     }
 
     .values {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .v {
       background: #ffffff;
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      box-shadow: 0 1px 6px rgba(148, 163, 184, 0.2);
+      border-radius: 14px;
+      padding: 12px 14px;
       border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 6px rgba(148, 163, 184, 0.2);
     }
 
     .v h4 {
       margin: 0 0 4px;
-      color: var(--primary);
-      font-size: 1rem;
+      font-size: 14px;
+      color: var(--ink);
     }
 
     .v p {
       margin: 0;
+      font-size: 13px;
       color: var(--muted);
-      font-size: 0.92rem;
     }
 
     .twrap {
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .t {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: flex-start;
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-card);
-      padding: 14px 16px;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 12px 14px;
       border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
     }
 
     .avatar {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--primary), var(--accent));
       flex-shrink: 0;
     }
 
-    .t strong {
-      font-size: 0.96rem;
-    }
+    .t strong { font-size: 13px; }
+    .t .meta { font-size: 11px; color: var(--muted); }
+    .t p { margin: 4px 0 0; font-size: 13px; color: var(--ink); }
 
-    .t .meta {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .t p {
-      margin: 4px 0 0;
-      font-size: 0.92rem;
-      color: var(--ink);
-    }
-
-    /* ===== FAQ CARD ===== */
+    /* FAQ CARD + FOOTER */
     .card {
-      background: var(--card);
+      background: #ffffff;
       box-shadow: var(--shadow-card);
-      padding: 20px 20px 18px;
-      margin: 26px 0 0;
-      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+      margin: 24px auto 0;
+      border-radius: 14px;
       border: 1px solid var(--border);
+      max-width: 1100px;
     }
 
     .card h2 {
       margin: 0 0 8px;
-      font-size: 1.3rem;
-      color: var(--primary);
+      font-size: 18px;
+      color: var(--ink);
     }
 
-    details {
-      margin-bottom: 8px;
-    }
-
+    details { margin-bottom: 6px; }
     summary {
       font-weight: 600;
       color: var(--primary);
       cursor: pointer;
-      font-size: 0.95rem;
+      font-size: 13px;
     }
-
-    details[open] summary {
-      color: var(--accent);
-    }
-
-    details p {
-      margin: 4px 0 0;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
+    details[open] summary { color: #f59e0b; }
+    details p { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
 
     footer {
-      margin-top: 22px;
-      color: var(--muted);
-      font-size: 0.78rem;
       text-align: center;
-      padding: 14px 0 18px;
+      font-size: 11px;
+      color: var(--muted);
+      padding: 16px 0 18px;
     }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
-      main.wrap { margin-top: 24px; }
-      .about { padding: 24px 18px; gap: 24px; }
+      .about {
+        grid-template-columns: 1fr;
+        padding: 24px 18px;
+        gap: 20px;
+      }
+      .statgrid { flex-direction: row; flex-wrap: wrap; }
     }
 
     @media (max-width: 640px) {
-      .about { flex-direction: column; }
       .statgrid { flex-direction: column; }
       .cta { flex-direction: column; }
-      .btn { width: 100%; text-align: center; }
-      .title { font-size: 1.6rem; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .title { font-size: 22px; }
+      main.wrap { margin-top: 24px; }
     }
   </style>
 </head>
@@ -466,103 +466,108 @@
       <a href="./index.html" class="logo">
         <img src="https://res.cloudinary.com/dzeekmcvf/image/upload/v1755840542/SkillWell_Logo_alma5m_d9seff.png" alt="SkillWell Logo">
       </a>
+
       <button class="nav-toggle" aria-label="Toggle Menu">☰</button>
+
       <nav class="main-nav">
         <ul>
-          <li><a href="./index.html">Home</a></li>
+          <li><a href="./about.html">About us</a></li>
           <li><a href="./login.html">Mentor Login</a></li>
           <li><a href="./login.html">Student Login</a></li>
         </ul>
+        <div class="nav-cta">
+          <button class="btn-outline" onclick="location.href='./login.html'">Access portal</button>
+          <button class="btn-primary" onclick="location.href='./login.html'">
+            <span class="icon">⭐</span><span>Start learning</span>
+          </button>
+        </div>
       </nav>
     </div>
   </header>
 
-  <!-- MAIN CONTENT -->
+  <!-- ABOUT CONTENT -->
   <main class="wrap">
     <section class="container about" aria-labelledby="about-title">
-      <div>
-        <span class="badge" aria-label="Mission">
+      <div class="left-col">
+        <span class="badge">
           <span class="badge-dot"></span>
-          <span>Mission-first • Outcome-driven</span>
+          <span>Mission‑first · Affordable & outcome‑driven</span>
         </span>
 
         <h1 id="about-title" class="title">
-          SkillWell helps students <span>learn confidently</span><br>and HR teams hire with evidence.
+          Learn <span>job‑ready skills</span> with guidance that HR can trust.
         </h1>
 
         <p class="lead">
-          SkillWell was created to close the gap between what students learn and what hiring managers expect.
-          Programs are intentionally priced low, built with industry input, and supported by mentors and a placement team focused on real outcomes.
+          SkillWell exists to bridge the gap between classroom learning and what hiring teams expect.
+          Courses are intentionally priced low, aligned to real job roles, and supported by mentors and a placement‑focused team.
         </p>
 
         <div class="pillrow" role="list" aria-label="Highlights">
           <span class="pill" role="listitem">₹999 starter tracks</span>
-          <span class="pill" role="listitem">Live & self‑paced modules</span>
+          <span class="pill" role="listitem">Live + self‑paced modules</span>
           <span class="pill" role="listitem">Portfolio‑ready projects</span>
-          <span class="pill" role="listitem">Mock interviews & feedback</span>
-          <span class="pill" role="listitem">ATS‑aligned resume support</span>
+          <span class="pill" role="listitem">Mock interviews</span>
+          <span class="pill" role="listitem">Resume & ATS prep</span>
         </div>
 
         <div class="cta">
-          <a class="btn primary" href="./index.html">Explore course catalog</a>
-          <a class="btn ghost" href="#placements">View placement support</a>
+          <button class="btn-primary" onclick="location.href='./index.html'">
+            <span class="icon">▶</span><span>Browse catalog</span>
+          </button>
+          <button class="btn-secondary" onclick="document.getElementById('placements').scrollIntoView({behavior:'smooth'})">
+            View placement support
+          </button>
         </div>
 
-        <div class="mini-heading">Students already trust SkillWell from</div>
-        <div class="partners" aria-label="Partner colleges">
-          <div class="rail" aria-hidden="true">
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755840488/gcoe_logo_gvulbh.png" alt="GCOE" />
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/sasurie_clg_logo_tmtdap.png" alt="Sasurie College" />
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/bharathidhasan_clg_logo_drj4oy.jpg" alt="Bharathidasan" />
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/Vels_Clg_ekjzb5.jpg" alt="Vels" />
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/Kasi_clg_logo_zdh446.png" alt="Kasi" />
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/psv_clg_y49hsb.png" alt="PSV" />
-            <!-- duplicate for smooth loop -->
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755840488/gcoe_logo_gvulbh.png" alt="" />
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/sasurie_clg_logo_tmtdap.png" alt="" />
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/bharathidhasan_clg_logo_drj4oy.jpg" alt="" />
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/Vels_Clg_ekjzb5.jpg" alt="" />
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/Kasi_clg_logo_zdh446.png" alt="" />
-            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/psv_clg_y49hsb.png" alt="" />
+        <div class="mini-heading">Students currently come from</div>
+        <div class="partners">
+          <div class="rail">
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755840488/gcoe_logo_gvulbh.png" alt="GCOE">
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/sasurie_clg_logo_tmtdap.png" alt="Sasurie">
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/bharathidhasan_clg_logo_drj4oy.jpg" alt="Bharathidasan">
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/Vels_Clg_ekjzb5.jpg" alt="Vels">
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/Kasi_clg_logo_zdh446.png" alt="Kasi">
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/psv_clg_y49hsb.png" alt="PSV">
+            <!-- duplicates for loop -->
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755840488/gcoe_logo_gvulbh.png" alt="">
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/sasurie_clg_logo_tmtdap.png" alt="">
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/bharathidhasan_clg_logo_drj4oy.jpg" alt="">
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842367/Vels_Clg_ekjzb5.jpg" alt="">
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/Kasi_clg_logo_zdh446.png" alt="">
+            <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842368/psv_clg_y49hsb.png" alt="">
           </div>
         </div>
       </div>
 
-      <div class="rightstack">
+      <div class="right-col">
         <div class="statgrid" role="list" aria-label="Impact stats">
           <div class="stat" role="listitem">
-            <div class="n" data-count="82">82%</div>
-            <div class="k">learners reporting improved interview readiness</div>
+            <div class="n">82%</div>
+            <div class="k">learners report improved interview readiness</div>
           </div>
           <div class="stat" role="listitem">
-            <div class="n" data-count="400">400+</div>
+            <div class="n">400+</div>
             <div class="k">course completions across tracks</div>
           </div>
           <div class="stat" role="listitem">
-            <div class="n" data-count="7.2">7.2 LPA</div>
-            <div class="k">highest package secured by learners</div>
+            <div class="n">7.2 LPA</div>
+            <div class="k">highest package secured so far</div>
           </div>
         </div>
 
         <div class="values" id="placements">
           <article class="v">
-            <h4>Clear placement roadmap</h4>
-            <p>
-              From fundamentals to mock interviews, each learner follows a weekly plan:
-              structured content, tracked assignments, and guided preparation until they are ready for real panels.
-            </p>
+            <h4>Structured placement journey</h4>
+            <p>From fundamentals to mock panels, learners follow a weekly plan so they know exactly what to prepare before HR interviews.</p>
           </article>
           <article class="v">
-            <h4>Real‑world, review‑based projects</h4>
-            <p>
-              Students build deployable work reviewed by mentors, giving HR teams concrete proof of skills instead of just completion certificates.
-            </p>
+            <h4>Project‑based learning</h4>
+            <p>Students ship work that recruiters can see: dashboards, apps, and case‑studies reviewed by mentors, not just multiple‑choice quizzes.</p>
           </article>
           <article class="v">
             <h4>Transparent, accessible pricing</h4>
-            <p>
-              Programs are priced to be accessible for first‑generation learners, with clarity on fees, timelines, and support—no hidden fine‑print.
-            </p>
+            <p>Simple pricing, clear scope, and documented policies. Built for first‑generation learners and colleges that care about outcomes.</p>
           </article>
         </div>
 
@@ -570,78 +575,46 @@
           <div class="t">
             <div class="avatar" aria-hidden="true"></div>
             <div>
-              <strong>Riya S.</strong> · Software Engineer
+              <strong>Riya S.</strong> · Software Engineer  
               <div class="meta">Full‑Stack track · Offer in 39 days</div>
               <p>
-                “The focus stayed on outcomes: projects, interview simulations, and feedback.  
-                By the time HR called, I had stories and skills, not just slides.”
+                “The focus stayed on projects and interview practice.  
+                By the time HR called, I had stories, repos and confidence—not just a certificate.”
               </p>
             </div>
           </div>
         </div>
-
-        <div class="cta" style="margin-top:10px;">
-          <a class="btn primary" href="./login.html">Login to SkillWell</a>
-          <a class="btn ghost" href="./index.html">View all programs</a>
-        </div>
       </div>
     </section>
 
-    <section class="container card" aria-labelledby="faq">
+    <section class="card container" aria-labelledby="faq">
       <h2 id="faq">FAQs</h2>
       <details>
         <summary>How does SkillWell support placements?</summary>
-        <p>
-          Learners follow a guided path: core track completion, projects, career sprints, mock interviews, and referrals
-          where available. Support continues through shortlisting and offer discussions.
-        </p>
+        <p>We combine structured learning paths, projects, career sprints, mock interviews and guidance until learners are ready for real hiring processes.</p>
       </details>
       <details>
-        <summary>Are the courses suitable for freshers?</summary>
-        <p>
-          Yes. Tracks are designed for college students and early‑career professionals, with foundations plus applied work
-          so HR teams can see progression over time.
-        </p>
+        <summary>Is SkillWell suitable for freshers and students?</summary>
+        <p>Yes. Tracks are designed for college students and early‑career professionals, with clear foundations and applied work aligned to entry‑level roles.</p>
       </details>
       <details>
-        <summary>Can colleges or HR teams partner with SkillWell?</summary>
-        <p>
-          Yes. Institutions and organisations can onboard batches, access progress dashboards, and request custom reports
-          for assessments and hiring pipelines.
-        </p>
+        <summary>Can colleges and HR teams partner with SkillWell?</summary>
+        <p>Institutions can onboard batches, track progress, and request reports for internships or hiring drives, making coordination easier for HR teams.</p>
       </details>
     </section>
 
     <footer>
-      © 2025 SkillWell · Learning and placement guidance for students and hiring partners.
+      © 2025 SkillWell · Learning and placement support for students, colleges and hiring partners.
     </footer>
   </main>
 
   <script>
-    const toggle = document.querySelector(".nav-toggle");
-    const nav = document.querySelector(".main-nav");
-    toggle.addEventListener("click", () => {
-      nav.classList.toggle("show");
-      toggle.textContent = nav.classList.contains("show") ? "✖" : "☰";
-    });
+    const toggleBtn = document.querySelector(".nav-toggle");
+    const navMenu = document.querySelector(".main-nav");
 
-    // simple count-up for stats
-    const easeOut = t => 1 - Math.pow(1 - t, 3);
-    document.querySelectorAll(".stat .n").forEach(el => {
-      const raw = el.textContent.trim();
-      const isLPA = raw.includes("LPA");
-      const numeric = parseFloat(raw);
-      const suffix = raw.replace(/[0-9.]/g, "").trim();
-      const startTime = performance.now();
-      const duration = 1100;
-
-      function tick(now) {
-        const p = Math.min((now - startTime) / duration, 1);
-        const value = numeric * easeOut(p);
-        el.textContent = isLPA ? value.toFixed(1) + " LPA" : suffix ? Math.round(value) + suffix : Math.round(value);
-        if (p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
+    toggleBtn.addEventListener("click", () => {
+      navMenu.classList.toggle("show");
+      toggleBtn.textContent = navMenu.classList.contains("show") ? "✖" : "☰";
     });
   </script>
 </body>
