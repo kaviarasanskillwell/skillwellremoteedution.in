@@ -85,13 +85,11 @@
     .back { display: block; text-align: center; margin-top: 20px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; }
     .back:hover { color: #fff; }
 
-    /* ---- DESKTOP LAYOUT ---- */
     @media (min-width: 992px) {
       .card { flex-direction: row; max-width: 660px; height: 600px; }
       .login-form-section { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 40px; }
     }
 
-    /* Toast */
     .toast {
       position: fixed; top: 20px; right: -400px;
       background: #ff4d4f; color: white;
@@ -103,7 +101,6 @@
     .toast.show { right: 20px; }
     .toast.success { background-color: #4caf50; }
 
-    /* FULLSCREEN MODERN LOADER */
     .fullscreen-loader {
       position: fixed;
       inset: 0;
@@ -170,12 +167,25 @@
 
   <div id="toast" class="toast"></div>
 
-  <!-- FULLSCREEN LOADER -->
   <div id="fullscreenLoader" class="fullscreen-loader">
     <div class="loader-ring"></div>
-    <div class="loader-text">Logging you in...</div>
+    <div class="loader-text">Checking credentials...</div>
   </div>
 
+  <!-- ✅ YOUR USERS LIST - ADD STUDENTS HERE -->
+  <script>
+    // ADD YOUR STUDENTS HERE (Copy paste lines below)
+    const USERS = [
+      { email: "student1@skillwell.com", password: "123456", secret: "student1-secret-xyz" },
+      { email: "student2@skillwell.com", password: "123456", secret: "student2-secret-xyz" },
+      { email: "student3@skillwell.com", password: "123456", secret: "student3-secret-xyz" },
+      { email: "admin@skillwell.com", password: "admin123", secret: "admin-secret-xyz" },
+      { email: "demo@skillwell.com", password: "demo123", secret: "demo-secret-xyz" }
+      // ADD MORE STUDENTS: { email: "student10@skillwell.com", password: "123456", secret: "s10-xyz" },
+    ];
+  </script>
+
+  <!-- ✅ LOGIN SCRIPT - WORKS OFFLINE -->
   <script>
     const loginForm = document.getElementById("loginForm");
     const loginBtn = document.getElementById("loginBtn");
@@ -188,53 +198,40 @@
       setTimeout(() => toast.classList.remove("show"), 3000);
     }
 
-  loginForm.addEventListener("submit", async function(e) {
-  e.preventDefault();
+    loginForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
 
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
+      loginBtn.disabled = true;
+      fullscreenLoader.classList.add("active");
+      fullscreenLoader.querySelector('.loader-text').textContent = "Checking...";
 
-  loginBtn.disabled = true;
-  fullscreenLoader.classList.add("active");
-
-  try {
-    const response = await fetch(
-      `https://skillwell-loginapi.onrender.com/skillwell/v1/logapi/login?email_id=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
-    );
-
-    let data;
-    try { 
-      data = await response.json(); 
-    } catch { 
-      data = await response.text(); 
-    }
-
-    // Check if response is an object and has the message
-    const isSuccess = typeof data === "object" && data.message === "successfuly_login";
-
-    if (isSuccess) {
-      // Store the secret in localStorage
-      localStorage.setItem("secret", data.secret);
-
-      showToast("✅ Login Successful! Redirecting...", true);
-      setTimeout(() => { 
-        window.location.href = "./course.html"; 
-      }, 1500);
-    } else {
-      showToast("❌ Invalid email or password!");
-      restoreUI();
-    }
-  } catch (err) {
-    console.error("Fetch error:", err);
-    showToast("⚠️ Network or server error.");
-    restoreUI();
-  }
-});
-
+      // ✅ CHECK USER FROM LOCAL LIST
+      const user = USERS.find(u => u.email === email && u.password === password);
+      
+      setTimeout(() => {
+        if (user) {
+          // ✅ SUCCESS - SAVE SECRET
+          localStorage.setItem("secret", user.secret);
+          showToast("✅ Login Successful! Redirecting...", true);
+          fullscreenLoader.querySelector('.loader-text').textContent = "Login OK!";
+          
+          setTimeout(() => { 
+            window.location.href = "./course.html"; 
+          }, 1500);
+        } else {
+          showToast("❌ Wrong email or password!");
+          restoreUI();
+        }
+      }, 1000); // Fake delay for nice UX
+    });
 
     function restoreUI() {
       loginBtn.disabled = false;
       fullscreenLoader.classList.remove("active");
+      fullscreenLoader.querySelector('.loader-text').textContent = "Checking credentials...";
     }
   </script>
 </body>
