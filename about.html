@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
       --primary: #2563eb;
@@ -457,6 +457,192 @@
       .title { font-size: 22px; }
       main.wrap { margin-top: 24px; }
     }
+
+    /* Slider Card */
+.slider {
+  width: 100%;
+  max-width: 920px;        /* Desktop max size */
+  aspect-ratio: 16 / 9;     /* Responsive height */
+  margin: auto;
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  background: #000;
+  margin-top: 10px;
+  
+}
+
+/* Slides Container */
+.slides {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s ease-in-out;
+  
+}
+
+/* Each Image */
+.slide {
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover;   /* Best for slider */
+  object-position: center;
+  flex-shrink: 0;
+  display: block;
+}
+
+/* Hide Radio Buttons */
+.slider input {
+  display: none;
+}
+
+/* Slide Movement */
+#s1:checked ~ .slides { transform: translateX(0%); }
+#s2:checked ~ .slides { transform: translateX(-100%); }
+#s3:checked ~ .slides { transform: translateX(-200%); }
+#s4:checked ~ .slides { transform: translateX(-300%); }
+
+/* Navigation Dots */
+.slider-nav {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.slider-nav label {
+  width: 10px;
+  height: 10px;
+  background: gray;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* Active Dot */
+#s1:checked ~ .slider-nav label[for="s1"],
+#s2:checked ~ .slider-nav label[for="s2"],
+#s3:checked ~ .slider-nav label[for="s3"],
+#s4:checked ~ .slider-nav label[for="s4"] {
+  background: #225BE4;
+  transform: scale(1.4);
+}
+
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .slider {
+    aspect-ratio: 4 / 3; /* Taller on tablet/mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .slider {
+    aspect-ratio: 1 / 1; /* Square on small mobile */
+  }
+}
+
+.footer-card {
+      background: #ffffff;
+      box-shadow: var(--shadow-card);
+      padding: 18px 18px 16px;
+      margin: 24px auto 0;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      max-width: 1100px;
+      text-align: center;
+    }
+.footer-links {
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  gap: 16px;                  /* space between icons */
+}
+
+/* Icon styling */
+.footer-links a {
+  font-size: 22px;
+  color:  #225BE4;
+  text-decoration: none;
+}
+
+/* Team container row */
+.team-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+/* BIGGER person card */
+.team-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  padding: 22px;
+  text-align: center;
+  width: 300px;          /* 🔥 Increased card width */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-soft);
+}
+
+/* BIGGER circle image */
+.person-img {
+  width: 140px;            /* 🔥 Increased circle size */
+  height: 140px;            /* MUST be same as width */
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin: 0 auto 12px;
+  border: 3px solid var(--border);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.2);
+}
+
+/* Name */
+.team-card h4 {
+  font-size: 18px;          /* Bigger name text */
+  font-weight: 700;
+  color: var(--ink);
+  margin: 6px 0 4px;
+}
+
+/* Designation */
+.role {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+/* Description */
+.desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Responsive (mobile) */
+@media (max-width: 900px) {
+  .team-card {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .person-img {
+    width: 110px;
+    height: 110px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -476,7 +662,8 @@
           <li><a href="./login.html">Student Login</a></li>
         </ul>
         <div class="nav-cta">
-          <button class="btn-outline" onclick="location.href='./login.html'">Access portal</button>
+          <!-- <button class="btn-outline" onclick="location.href='./login.html'">Access portal</button> -->
+           <button class="btn-outline" onclick="location.href='https://kaviarasanskillwell.github.io/skillwellsolution/'">Register Now!!</button>
           <button class="btn-primary" onclick="location.href='./login.html'">
             <span class="icon">⭐</span><span>Start learning</span>
           </button>
@@ -587,6 +774,70 @@
       </div>
     </section>
 
+    <section>
+
+  <div class="slider">
+
+    <!-- radio buttons -->
+    <input type="radio" name="slide" id="s1" checked>
+    <input type="radio" name="slide" id="s2">
+    <input type="radio" name="slide" id="s3">
+    <input type="radio" name="slide" id="s4">
+
+    <!-- images -->
+    <div class="slides">
+      <img src="images/image-1.jpeg" class="slide">
+      <img src="images/image-2.jpeg" class="slide">
+      <img src="images/image-3.jpeg" class="slide">
+      <img src="images/image-5.jpeg" class="slide">
+    </div>
+
+    <!-- dots -->
+    <div class="slider-nav">
+      <label for="s1"></label>
+      <label for="s2"></label>
+      <label for="s3"></label>
+      <label for="s4"></label>
+    </div>
+
+  </div>
+  <div class="team-row">
+
+  <div class="team-card">
+    <img src="images/photo-image-1.jpeg" class="person-img">
+    <h4>Kaviarasan</h4>
+    <p class="role">Founder and Lead Technical Trainer</p>
+    <p class="desc">Visionary leader driving innovation and growth, focused on building impactful digital products and empowering the team to achieve excellence.</p>
+  </div>
+
+  <div class="team-card">
+    <img src="images/photo-image-4.jpeg" class="person-img">
+    <h4>Barathsuriya M</h4>
+    <p class="role">Project Manager</p>
+    <p class="desc">The Skillwell Project Manager ensures that all training programs, client projects, and internal initiatives are delivered on time, within scope, and with high quality, while aligning with Skillwell’s business goals.</p>
+  </div>
+
+  <div class="team-card">
+    <img src="images/photo-image-3.jpeg" class="person-img">
+    <h4>Nandagopal</h4>
+    <p class="role">Digital Marketer</p>
+    <p class="desc">Expert in digital marketing strategies, social media growth, and brand building to increase online presence and customer engagement.</p>
+  </div>
+
+  <div class="team-card">
+    <img src="images/photo-image-2.jpeg" class="person-img">
+    <h4>Naveen</h4>
+    <p class="role">Developer</p>
+    <p class="desc">Passionate software developer skilled in building responsive, scalable, and high-performance web applications using modern technologies.</p>
+  </div>
+
+
+
+</div>
+
+
+</section>
+
     <section class="card container" aria-labelledby="faq">
       <h2 id="faq">FAQs</h2>
       <details>
@@ -603,6 +854,28 @@
       </details>
     </section>
 
+     <section class="footer-card">
+      <h3>Connect With Us</h3>
+
+      <div class="footer-links">
+    <a href="https://www.linkedin.com/company/skillwell-remote-education/" target="_blank">
+      <i class="fab fa-linkedin"></i>
+    </a>
+
+    <a href="https://www.instagram.com/skill.well_education?igsh=OHgweHZ2anRtOGl1" target="_blank">
+      <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://wa.me/qr/YRFQQ7MZ2VLOC1" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <a href="mailto:skillwellsolution@gmail.com">
+      <i class="fas fa-envelope"></i>
+    </a>
+  </div>
+    </section>
+
     <footer>
       © 2024 SkillWell · Learning and placement support for students, colleges and hiring partners.
     </footer>
@@ -616,6 +889,13 @@
       navMenu.classList.toggle("show");
       toggleBtn.textContent = navMenu.classList.contains("show") ? "✖" : "☰";
     });
+    let index = 0;
+const radios = document.querySelectorAll("input[name='slide']");
+
+setInterval(() => {
+  index = (index + 1) % radios.length;
+  radios[index].checked = true;
+}, 3000);
   </script>
 </body>
 </html>
