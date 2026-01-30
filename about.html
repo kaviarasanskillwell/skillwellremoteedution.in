@@ -487,6 +487,15 @@
   min-width: 100%;
   height: 100%;
   object-fit: cover;   /* Best for slider */
+  object-position: top;
+  flex-shrink: 0;
+  display: block;
+}
+
+.slide-5{
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover;   /* Best for slider */
   object-position: center;
   flex-shrink: 0;
   display: block;
@@ -502,6 +511,7 @@
 #s2:checked ~ .slides { transform: translateX(-100%); }
 #s3:checked ~ .slides { transform: translateX(-200%); }
 #s4:checked ~ .slides { transform: translateX(-300%); }
+#s5:checked ~ .slides { transform: translateX(-400%); }
 
 /* Navigation Dots */
 .slider-nav {
@@ -526,7 +536,8 @@
 #s1:checked ~ .slider-nav label[for="s1"],
 #s2:checked ~ .slider-nav label[for="s2"],
 #s3:checked ~ .slider-nav label[for="s3"],
-#s4:checked ~ .slider-nav label[for="s4"] {
+#s4:checked ~ .slider-nav label[for="s4"],
+#s5:checked ~ .slider-nav label[for="s5"]  {
   background: #225BE4;
   transform: scale(1.4);
 }
@@ -585,7 +596,7 @@
   box-shadow: var(--shadow-card);
   padding: 22px;
   text-align: center;
-  width: 300px;          /* 🔥 Increased card width */
+  width: 300px;          /*  Increased card width */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -596,7 +607,7 @@
 
 /* BIGGER circle image */
 .person-img {
-  width: 140px;            /* 🔥 Increased circle size */
+  width: 140px;            /*  Increased circle size */
   height: 140px;            /* MUST be same as width */
   border-radius: 50%;
   object-fit: cover;
@@ -783,13 +794,15 @@
     <input type="radio" name="slide" id="s2">
     <input type="radio" name="slide" id="s3">
     <input type="radio" name="slide" id="s4">
+    <input type="radio" name="slide" id="s5">
 
     <!-- images -->
     <div class="slides">
-      <img src="images/image-1.jpeg" class="slide">
-      <img src="images/image-2.jpeg" class="slide">
-      <img src="images/image-3.jpeg" class="slide">
-      <img src="images/image-5.jpeg" class="slide">
+      <img src="images/image-1.jpeg" class="slide" alt="slide-image">
+      <img src="images/image-2.jpeg" class="slide" alt="slide-image">
+      <img src="images/image-3.jpeg" class="slide" alt="slide-image">
+      <img src="images/image-4.jpeg" class="slide" alt="slide-image">
+      <img src="images/image-5.jpeg" class="slide-5" alt="slide-image">
     </div>
 
     <!-- dots -->
@@ -798,6 +811,7 @@
       <label for="s2"></label>
       <label for="s3"></label>
       <label for="s4"></label>
+      <label for="s5"></label>
     </div>
 
   </div>
@@ -805,7 +819,7 @@
 
   <div class="team-card">
     <img src="images/photo-image-1.jpeg" class="person-img">
-    <h4>Kaviarasan</h4>
+    <h4>Kaviarasan N</h4>
     <p class="role">Founder and Lead Technical Trainer</p>
     <p class="desc">Visionary leader driving innovation and growth, focused on building impactful digital products and empowering the team to achieve excellence.</p>
   </div>
@@ -819,7 +833,7 @@
 
   <div class="team-card">
     <img src="images/photo-image-3.jpeg" class="person-img">
-    <h4>Nandagopal</h4>
+    <h4>Nandagopal Saiprakash</h4>
     <p class="role">Digital Marketer</p>
     <p class="desc">Expert in digital marketing strategies, social media growth, and brand building to increase online presence and customer engagement.</p>
   </div>
