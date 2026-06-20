@@ -464,7 +464,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-    const secret = localStorage.getItem('secret');
+    // const secret = localStorage.getItem('secret');
+    const secret = localStorage.getItem('supabaseToken')
 
     // If no secret, redirect to login
     if (!secret) {
