@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TZYPMFLSBE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TZYPMFLSBE');
+</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SkillWell | Learn Future Skills</title>
@@ -776,9 +785,11 @@
         'Marketing & Sales Automation', 'AI for Robotics', 'Streamlit Crash Course', 'Leadership Skills for Engineers'
       ][i % 10] + ' #' + (i + 1),
       type: ['Course', 'Bundle'][i % 2],
-      author: ['Pantech Solutions', 'Sanjay D', 'Sobana Devi', 'SkillWell Mentors'][i % 4],
+      // author: ['Pantech Solutions', 'Sanjay D', 'Sobana Devi', 'SkillWell Mentors'][i % 4],
+      author: ['SkillWell Mentors'][i % 1],
       image: `https://picsum.photos/seed/catalog-${i}/1000/563`,
-      price: [999, 1499, 4497, 7495, 599, 3499, 2999, 7999, 14999][i % 9]
+      // price: [999, 1499, 4497, 7495, 599, 3499, 2999, 7999, 14999][i % 9]
+      price: [1499][i % 1]
     }));
 
     const PAGE_SIZE = 18;
