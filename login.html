@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Secure Login | SkillWell</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -48,6 +49,7 @@
       opacity: 0.55;
       z-index: -1;
     }
+
     .orb.orb-1 {
       width: 260px;
       height: 260px;
@@ -55,6 +57,7 @@
       top: -70px;
       left: -40px;
     }
+
     .orb.orb-2 {
       width: 320px;
       height: 320px;
@@ -78,8 +81,15 @@
     }
 
     @keyframes cardFadeIn {
-      from { opacity: 0; transform: translateY(18px) scale(0.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .login-header {
@@ -420,7 +430,9 @@
     }
 
     @keyframes spin {
-      100% { transform: rotate(360deg); }
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     .loader-text {
@@ -435,11 +447,18 @@
         padding: 26px 20px 24px;
         border-radius: 20px;
       }
-      h1 { font-size: 1.5rem; }
-      .subtitle { font-size: 0.86rem; }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .subtitle {
+        font-size: 0.86rem;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
@@ -448,8 +467,7 @@
     <div class="login-header">
       <div class="login-logo-wrapper">
         <img src="https://res.cloudinary.com/da72eh5rv/image/upload/v1755842584/SkillWell_Logo_1_wtphyo.png"
-             alt="SkillWell Logo"
-             class="login-logo" />
+          alt="SkillWell Logo" class="login-logo" />
       </div>
       <div class="eyebrow">SkillWell Students</div>
       <h1>Welcome Back</h1>
@@ -459,7 +477,7 @@
         <span>Secure, student‑first login experience</span>
       </div>
     </div>
-    
+
     <form id="loginForm" novalidate>
       <div class="input-group">
         <div class="input-label">
@@ -482,15 +500,6 @@
         </div>
         <div class="input-hint">Keep your password private and do not share it.</div>
       </div>
-
-      <!-- <div class="form-meta">
-        <label class="remember-wrapper">
-          <input type="checkbox" id="rememberMe" checked>
-          <span>Keep me signed in</span>
-        </label>
-        <a href="#">Forgot password?</a>
-      </div> -->
-
       <button type="submit" id="loginBtn">
         <span class="btn-glow-dot"></span>
         <span class="btn-text">Log In to SkillWell</span>
@@ -594,4 +603,5 @@
     });
   </script>
 </body>
+
 </html>

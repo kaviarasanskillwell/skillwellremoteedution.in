@@ -12,9 +12,6 @@ console.log("Auth.js Started");
 
 const { data } = await supabase.auth.getSession();
 
-// console.log("Session:", data.session);
-// const {data} = await supabase.auth.getSession();
-
-if(!data.session){
+if (!data.session) {
     window.location.href = "./login.html";
 }
